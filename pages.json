@@ -1,0 +1,97 @@
+{
+    "pages": [ //pages数组中第一项表示应用启动页, adjustResize
+	{
+	    "path" : "pages/goodsdetail/goodsdetail",
+	    "style" : {
+			 "navigationStyle":"custom",
+			 "bounce": "none",
+			 "titleNView":false
+		}
+	},
+	{
+			   "path": "pages/purchase/purchasemenu",
+			   "style": {
+				   
+				   "navigationStyle":"custom",
+			       "bounce": "none",
+				   "titleNView":false
+				   
+			   }   
+	},
+	{
+	    "path": "pages/login/login",
+	    "style": {
+	        "navigationBarTitleText": "登录",
+			"app-plus": {
+			    "softinputMode": "adjustPan"
+			}
+	    }
+	   },
+	   {
+		"path": "pages/login/ip",
+		"style": {
+		    "navigationBarTitleText": "设置服务器地址"
+		}   
+	   },
+	   
+        {
+            "path": "pages/main/main",
+            "style": {
+                "navigationBarTitleText": "登录模板"
+            }
+        },  {
+            "path": "pages/reg/reg",
+            "style": {
+                "navigationBarTitleText": "注册"
+            }
+        }, {
+            "path": "pages/pwd/pwd",
+            "style": {
+                "navigationBarTitleText": "找回密码"
+            }
+        }, {
+            "path": "pages/user/user",
+            "style": {
+                "navigationBarTitleText": "我的"
+            }
+        }
+        
+    ],
+    "tabBar": {
+        "color": "#7a7e83",
+        "selectedColor": "#0faeff",
+        "backgroundColor": "#ffffff",
+        "list": [{
+            "pagePath": "pages/main/main",
+            "text": "采购报表",
+            "iconPath": "static/img/purchase.png",
+            "selectedIconPath": "static/img/purchaseHL.png"
+        },
+		{
+		    "pagePath": "pages/main/main",
+		    "text": "批发报表",
+		    "iconPath": "static/img/sales.png",
+		    "selectedIconPath": "static/img/salesHL.png"
+		},
+		{
+            "pagePath": "pages/user/user",
+            "text": "库存报表",
+            "iconPath": "static/img/stock.png",
+            "selectedIconPath": "static/img/stockHL.png"
+        },
+		{
+		    "pagePath": "pages/user/user",
+		    "text": "零售报表",
+		    "iconPath": "static/img/pos.png",
+		    "selectedIconPath": "static/img/posHL.png"
+		}
+		]
+    },
+    "globalStyle": {
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#108ee9", /*#0faeff*/
+        "backgroundColor": "#108ee9" /*,#fbf9fe*/
+		
+    }
+	
+}

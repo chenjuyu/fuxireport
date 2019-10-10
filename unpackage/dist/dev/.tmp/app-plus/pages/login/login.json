@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "登录",
+  "softinputMode": "adjustPan",
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}

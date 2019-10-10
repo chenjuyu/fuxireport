@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/goodsdetail/goodsdetail",
+    "pages/purchase/purchasemenu",
+    "pages/login/login",
+    "pages/login/ip",
+    "pages/main/main",
+    "pages/reg/reg",
+    "pages/pwd/pwd",
+    "pages/user/user"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#108ee9",
+    "backgroundColor": "#108ee9"
+  },
+  "tabBar": {
+    "color": "#7a7e83",
+    "selectedColor": "#0faeff",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "采购报表",
+        "iconPath": "static/img/purchase.png",
+        "selectedIconPath": "static/img/purchaseHL.png"
+      },
+      {
+        "pagePath": "pages/main/main",
+        "text": "批发报表",
+        "iconPath": "static/img/sales.png",
+        "selectedIconPath": "static/img/salesHL.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "库存报表",
+        "iconPath": "static/img/stock.png",
+        "selectedIconPath": "static/img/stockHL.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "零售报表",
+        "iconPath": "static/img/pos.png",
+        "selectedIconPath": "static/img/posHL.png"
+      }
+    ]
+  },
+  "nvueCompiler": "weex",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "fuxireport",
+  "compilerVersion": "2.3.3",
+  "usingComponents": {}
+}

@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"btn-row{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }\n",],undefined,{path:"./pages/login/ip.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/login/ip.wxml') } }));
