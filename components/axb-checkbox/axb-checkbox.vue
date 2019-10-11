@@ -41,6 +41,7 @@
 						re.name = item.name
 						re.value = item.value
 						re.checked= !allr.checked
+						re.Quantity =item.Quantity
 						arr.push(re)
 					})
 				} else{
@@ -48,6 +49,7 @@
 						let r = {}
 						r.name = this.items[i].name
 						r.value = this.items[i].value
+						r.Quantity =this.items[i].Quantity
 						if(this.multi){ // 多选
 							if(this.items[i].value === val){ // 选中项处理
 								r.checked = !this.items[i].checked

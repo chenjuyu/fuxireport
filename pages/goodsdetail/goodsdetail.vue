@@ -35,23 +35,28 @@
 				    }, {
 				        name: '星月蓝黑色',
 				        value: '6month',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    }, {
 				        name: '星月蓝黑色我的我',
 				        value: '1year',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    },{
 				        name: '星月蓝黑色我的我q',
 				        value: '2year',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    },{
 				        name: '星月蓝黑色我',
 				        value: '3year',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    },{
 				        name: '星月蓝黑色红剑',
 				        value: '4year',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    }]
 			}
 		},
