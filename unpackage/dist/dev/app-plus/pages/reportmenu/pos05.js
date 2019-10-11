@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"warp{ width: 100%; }\n",],undefined,{path:"./pages/reportmenu/pos05.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/reportmenu/pos05.wxml') } }));

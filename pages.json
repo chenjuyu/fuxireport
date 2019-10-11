@@ -1,6 +1,14 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页, adjustResize
 	{
+	    "path" : "pages/reportmenu/pos05",
+	    "style" : {
+			 "navigationStyle":"custom",
+			 "bounce": "none",
+			 "titleNView":false
+		}
+	},
+	{
 	    "path" : "pages/goodsdetail/goodsdetail",
 	    "style" : {
 			 "navigationStyle":"custom",
@@ -9,7 +17,7 @@
 		}
 	},
 	{
-			   "path": "pages/purchase/purchasemenu",
+			   "path": "pages/reportmenu/purchasemenu",
 			   "style": {
 				   
 				   "navigationStyle":"custom",
@@ -17,6 +25,16 @@
 				   "titleNView":false
 				   
 			   }   
+	},
+	{
+	    "path" : "pages/select/select",
+	    "style" : {
+			"navigationStyle":"custom",
+			"bounce": "none",
+			"titleNView":false,
+			"enReachBottom":true
+			//"enablePullDownRefresh": true
+		}
 	},
 	{
 	    "path": "pages/login/login",

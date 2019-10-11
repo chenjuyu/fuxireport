@@ -14,7 +14,7 @@
                 <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
             </view>
         </view>
-        <view class="btn-row" @click="bindLogin">
+        <view class="btn" @click="bindLogin">
            <!-- <button type="primary"  @tap="bindLogin">登录</button> -->
 		   <text style="font-size: 18px;color: #FFFFFF;">登录</text>
         </view>
@@ -272,7 +272,7 @@
         height: 60upx;
         margin: 20upx;
     }
-.btn-row{
+.btn{
 	display: flex;
 	background-color: #108ee9;
 	justify-content: center;

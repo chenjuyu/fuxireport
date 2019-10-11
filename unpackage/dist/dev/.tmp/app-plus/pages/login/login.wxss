@@ -53,7 +53,7 @@
         height: 60rpx;
         margin: 20rpx;
 }
-.btn-row{
+.btn{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

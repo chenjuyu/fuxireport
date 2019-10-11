@@ -1,7 +1,9 @@
 {
   "pages": [
+    "pages/reportmenu/pos05",
     "pages/goodsdetail/goodsdetail",
-    "pages/purchase/purchasemenu",
+    "pages/reportmenu/purchasemenu",
+    "pages/select/select",
     "pages/login/login",
     "pages/login/ip",
     "pages/main/main",

@@ -1,6 +1,6 @@
 <template>
 	<view style="width: 100%;">
-	<uni-nav-bar left-icon="back" left-text="返回" right-text="更多" @click-left="leftclick" @click-right="rightclick"  title="采购报表菜单" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
+	<uni-nav-bar left-icon="back" left-text="返回" @click-left="leftclick" @click-right="rightclick"  title="零售分析" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
 
   <uniGrid :options="options" column-num="4">
   </uniGrid>
@@ -14,10 +14,10 @@
 	    components: {uniNavBar,uniGrid},
 		data(){
 			return{
-				options:[{text:"采购汇总表",image:'../../static/img/pos.png',url:'column/column'},
-				{text:"采购明细表",image:'../../static/img/pos.png',url:'column/column'},
+				options:[{text:"零售分析",image:'../../static/img/pos.png',url:'reportmenu/pos05'}
+			/*	{text:"采购明细表",image:'../../static/img/pos.png',url:'column/column'},
 				{text:"应付汇总表",image:'../../static/img/pos.png',url:'column/column'},
-				{text:"应付明细表",image:'../../static/img/pos.png',url:'column/column'}
+				{text:"应付明细表",image:'../../static/img/pos.png',url:'column/column'} */
 				]
 			}
 		},methods:{
