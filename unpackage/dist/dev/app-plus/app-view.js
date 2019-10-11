@@ -1595,14 +1595,14 @@ Z([3,'false'])
 Z(z[11])
 Z([[7],[3,'title']])
 Z([3,'1'])
-Z([3,'position:fixed;z-index:998;'])
+Z([3,'position:relative;display:block;z-index:998;'])
 Z(z[3])
 Z([[4],[[5],[[4],[[5],[[5],[1,'input']],[[4],[[5],[[4],[[5],[[5],[1,'__set_model']],[[4],[[5],[[5],[[5],[[5],[1,'']],[1,'keyword']],[1,'$event']],[[4],[[5]]]]]]]]]]]]])
 Z([3,'输入关键字查询'])
-Z([3,'height:100rpx;border-width:1px;width:200rpx;'])
+Z([3,'height:100rpx;border-width:1px;width:100%;'])
 Z([3,'text'])
 Z([[7],[3,'keyword']])
-Z([3,'margin-top:10rpx;'])
+Z([3,'margin-top:10rpx;display:block;position:relative;'])
 Z(z[2])
 Z([3,'2'])
 Z([[4],[[5],[1,'default']]])
@@ -2572,7 +2572,7 @@ __wxAppCode__['pages/reportmenu/pos05.wxml']=$gwx('./pages/reportmenu/pos05.wxml
 __wxAppCode__['pages/reportmenu/purchasemenu.wxss']=undefined;    
 __wxAppCode__['pages/reportmenu/purchasemenu.wxml']=$gwx('./pages/reportmenu/purchasemenu.wxml');
 
-__wxAppCode__['pages/select/select.wxss']=setCssToHead([".",[1],"warp{ width:100%; position: relative; }\n.",[1],"uni-list{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-flex:1; -webkit-flex:1; -ms-flex:1; flex:1; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }\n.",[1],"uni-list-cell { -webkit-box-pack: start; -webkit-justify-content: flex-start; -ms-flex-pack: start; justify-content: flex-start; }\n.",[1],"btn{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; background-color: #108ee9; -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; border-radius: 5px; position: fixed; height: ",[0,80],"; width: 100%; left: 0; bottom: 0; }\n.",[1],"loading-text{ height: ",[0,80],"; line-height: ",[0,80],"; font-size: ",[0,30],"; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-justify-content: space-around; -ms-flex-pack: distribute; justify-content: space-around; }\n",],undefined,{path:"./pages/select/select.wxss"});    
+__wxAppCode__['pages/select/select.wxss']=setCssToHead([".",[1],"warp{ width:100%; position: relative; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }\n.",[1],"uni-list{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-flex:1; -webkit-flex:1; -ms-flex:1; flex:1; -webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; -ms-flex-direction: column; flex-direction: column; }\n.",[1],"uni-list-cell { -webkit-box-pack: start; -webkit-justify-content: flex-start; -ms-flex-pack: start; justify-content: flex-start; }\n.",[1],"btn{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; background-color: #108ee9; -webkit-box-pack: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; border-radius: 5px; position: fixed; height: ",[0,80],"; width: 100%; left: 0; bottom: 0; }\n.",[1],"loading-text{ height: ",[0,80],"; line-height: ",[0,80],"; font-size: ",[0,30],"; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -webkit-flex-direction: row; -ms-flex-direction: row; flex-direction: row; -webkit-justify-content: space-around; -ms-flex-pack: distribute; justify-content: space-around; }\n",],undefined,{path:"./pages/select/select.wxss"});    
 __wxAppCode__['pages/select/select.wxml']=$gwx('./pages/select/select.wxml');
 
 __wxAppCode__['pages/user/user.wxss']=undefined;    

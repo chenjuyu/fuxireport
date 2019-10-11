@@ -29,11 +29,12 @@
 	{
 	    "path" : "pages/select/select",
 	    "style" : {
-			"navigationStyle":"custom",
+		"app-plus": {  	"navigationStyle":"custom",
 			"bounce": "none",
 			"titleNView":false,
 			"enReachBottom":true
 			//"enablePullDownRefresh": true
+			}
 		}
 	},
 	{

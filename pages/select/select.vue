@@ -1,9 +1,9 @@
 <template>
 	<view class="warp">
 		<uni-nav-bar left-icon="back" left-text="返回"  @click-left="leftclick" right-text="确定" @click-right="submit" fixed="true" :title="title" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
-		<view style="position: fixed;
-			z-index: 998;"><input type="text" style="height: 100upx;border-width: 1px;width: 200upx;" v-model="keyword" placeholder="输入关键字查询"/></view>
-		<view style="margin-top: 10upx;">
+		<view style="position: relative; display: block;
+			z-index: 998;"><input type="text" style="height: 100upx;border-width: 1px;width: 100%;" v-model="keyword" placeholder="输入关键字查询"/></view>
+		<view style="margin-top: 10upx;display: block;position: relative;">
 		<uni-list>
 			  <checkbox-group @change="checkboxChange">
 			                <label class="uni-list-cell uni-list-cell-pd" v-for="item in items" :key="item.value">
@@ -154,6 +154,8 @@
 	.warp{
 		width:100%;
 		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 	.uni-list{
 		display: flex;
