@@ -1,6 +1,6 @@
 <template>
 	<view class="style-flex style-flex-wrap">
-		<filter-radio-item v-for="(item, idx) in items" :key="idx" :name="item.name" :value="item.value" :checked="item.checked" @change="radioChange"></filter-radio-item>
+		<filter-radio-item v-for="(item, idx) in items" :tipqty="item.Quantity" :key="idx" :name="item.name" :value="item.value" :checked="item.checked" @change="radioChange"></filter-radio-item>
 	</view>
 </template>
 
@@ -76,7 +76,7 @@
 				this.items = arr
 			},
 			radioChange: function (e) {
-				console.log('radio发生change事件，携带value值为：' + e)
+			//	console.log('radio发生change事件，携带value值为：' + e)
 				// 改变单击项 
 				this.handleChange(e)
 				const re = []
@@ -105,8 +105,14 @@
 </script>
 
 <style>
-
- 
+.style-flex{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+ .style-flex-wrap{
+	 flex-wrap: wrap;
+ }
  /*.radio:not(:last-child){
 	 margin: 10upx 20upx 30upx 20upx;
  } 

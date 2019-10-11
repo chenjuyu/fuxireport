@@ -1,12 +1,12 @@
 <template>
-	<view style="display:inline-block;height: 70upx; position:relative;background-color: #007AFF;">
-		<view style="position: relative;right: 0;top:0; text-align: right;justify-content: flex-end; width: 40upx;height: 40upx;border-radius: 20upx;background-color: red;">
-			<uni-badge text="3" type="default" :inverted="true"></uni-badge>
-		</view>
+	<view style="height: 70upx; position: relative; padding-top: 20upx;  margin-left: 10upx;margin-bottom: 10upx;">
+	<view v-if="tipqty"   style="position: absolute;right: 0;top:0;display: flex;justify-content: center;align-items: center; width: 40upx;height: 40upx;border-radius: 20upx;background-color: red;">
+		<text  style="font-size: 18upx;text-align: center; color: #FFF;">{{tipqty}}</text>
+	</view>
 	<view class="radio" :class="{'radio-width-default':widthDefault}"  :style="checked?activeStyle :itemStyle" @click="handleChange">
 		{{name}}
 	</view>
-	
+
 	</view>
 </template>
 
@@ -66,6 +66,10 @@ const debounce = function (fun, delay, immediate) {
 				type: [Boolean, Number],
 				default: false
 			},
+			tipqty:{
+				type:[String,Number],
+				default:''
+			}
 		},
 		computed: {
 			widthDefault() {
@@ -74,7 +78,7 @@ const debounce = function (fun, delay, immediate) {
 				
 			}, 
 			activeStyle() {
-				return `background: #d5e4fd;color: #3c7ef6;border-color: #3c7ef6; `
+				return `background: #108ee9;color: #FFF;border-color: #3c7ef6; `
 			},
 			itemStyle() {
 				return `background: #f7f7f7;color: #7d7d7d;`
@@ -96,22 +100,18 @@ const debounce = function (fun, delay, immediate) {
 </script>
 
 <style>
-	/*box-sizing: border-box; width: 150upx;*/
+	/*box-sizing: border-box; width: 150upx; display:inline-block;margin-right: 20upx;*/
 	.radio {
-		display:inline-block;
 		height: 70upx;
 		line-height: 70upx; 
 		border-radius: 10upx;
 		font-size: 26upx;
 		box-sizing: border-box;
 		border: 1px solid #c3c3c3;
-		margin-right: 20upx;
-	
-		text-align: center;
-		overflow:hidden;
-		position: relative;
-		top: 0;
 		
+		text-align: center;
+	
+		overflow:hidden;	
 	}
 /* overflow:hidden;text-overflow: ellipsis;
 	.radio:not(:last-child) {

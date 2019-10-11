@@ -96,9 +96,12 @@
 
 
 
-	/*box-sizing: border-box; width: 150upx;*/
+
+
+
+
+	/*box-sizing: border-box; width: 150upx; display:inline-block;margin-right: 20upx;*/
 .radio {
-		display:inline-block;
 		height: 70rpx;
 		line-height: 70rpx; 
 		border-radius: 10rpx;
@@ -106,12 +109,10 @@
 		-webkit-box-sizing: border-box;
 		        box-sizing: border-box;
 		border: 1px solid #c3c3c3;
-		margin-right: 20rpx;
-	
+		
 		text-align: center;
+	
 		overflow:hidden;
-		position: relative;
-		top: 0;
 }
 	/* overflow:hidden;text-overflow: ellipsis;
 	.radio:not(:last-child) {

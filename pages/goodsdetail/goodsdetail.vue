@@ -4,7 +4,7 @@
 	<!--:multi="true" 为多选 -->
 	
 	<view style="display: flex;justify-content: center;align-items: center;margin-top: 100upx; text-align: center;">
-	<axb-check-box ref="radio3" :list="sartTime" @change="radioChangeType"></axb-check-box>
+	<axb-check-box ref="radio3" :list="sartTime" @change="ChangeType"></axb-check-box>
 	</view>
 		
 	</view>
@@ -20,15 +20,18 @@
 				 sartTime: [{ // 开始日期
 				        name: '红色',
 				        value: '3day',
-				        checked: 1
+				        checked: 1,
+						Quantity:1
 				    }, {
 				        name: '蓝色',
 				        value: '1week',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    }, {
 				        name: '黄色',
 				        value: '1month',
-				        checked: 0
+				        checked: 0,
+						Quantity:1
 				    }, {
 				        name: '星月蓝黑色',
 				        value: '6month',
@@ -56,8 +59,8 @@
 			console.log(JSON.stringify(this.sartTime))
 		},
 		methods: {
-			radioChangeType(val){
-				console.log(val) // 单选时 返回选中项的value, 反选返回null
+			ChangeType(val){
+				console.log('val:'+val) // 单选时 返回选中项的value, 反选返回null
 			},leftclick(){
 			uni.showToast({
 				title:'左点击aaa',
