@@ -1,6 +1,7 @@
 <template>
 	<view class="warp">
-		<uni-nav-bar left-icon="back" left-text="返回" fixed="true" right-icon="search" @click-left="leftclick" @click-right="rightclick"  title="零售分析" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
+	<!--	<uni-nav-bar left-icon="back" left-text="返回" fixed="true" right-icon="search" @click-left="leftclick" @click-right="rightclick"  title="零售分析" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
+	-->
 		<uni-segmented-control :current="current0" :values="items0" @clickItem="onClickItem0" style-type="button" active-color="#108ee9"></uni-segmented-control>
 		<view style="display: flex;justify-content: center;align-items: center;"><text style="font-size: 30upx;">{{BeginDate}}至{{EndDate}}</text></view>
 		<uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="button" active-color="#108ee9"></uni-segmented-control>
@@ -47,6 +48,14 @@
 		}
 		,onShow(){
 			console.log('condition:'+this.condition)
+		},onNavigationBarButtonTap(e) {
+			if(e.index==0){ //点击左按扭
+			this.leftclick()	
+			}else if(e.index=1){
+			this.rightclick()	
+			}
+			console.log(e)		
+			
 		}
 		,methods:{
 			leftclick(){

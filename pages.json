@@ -3,9 +3,28 @@
 	{
 	    "path" : "pages/reportmenu/pos05",
 	    "style" : {
-			 "navigationStyle":"custom",
+			/* "navigationStyle":"custom",
 			 "bounce": "none",
-			 "titleNView":false
+			 "titleNView":false */
+			  "navigationBarTitleText" : "零售分析",
+			 			       "app-plus": {
+			 			           "bounce": "none", //关闭窗口回弹效果
+			 			           "titleNView": {
+			 			               "buttons": [ //原生标题栏按钮配置,
+			 						   {
+			 							   "type":"back",
+			 							   "float":"left"
+			 							   
+			 						   },
+			 			                   {
+			 			            		    "type":"search",
+			 			     
+			 			            		    "float":"right"
+			 			                   }
+			 			                ]
+			 			            }
+			 			 
+			 		}
 		}
 	},
 	{
@@ -29,13 +48,38 @@
 	{
 	    "path" : "pages/select/select",
 	    "style" : {
-		"app-plus": {  	"navigationStyle":"custom",
-			"bounce": "none",
-			"titleNView":false,
-			"enReachBottom":true
-			//"enablePullDownRefresh": true
-			}
-		}
+	/* "navigationStyle":"custom",
+			 "bounce": "none",
+			 "titleNView":false */
+			 "navigationBarTitleText" : "资料选择",
+			       "app-plus": {
+			           "bounce": "none", //关闭窗口回弹效果
+			           "titleNView": {
+			              "buttons": [ //原生标题栏按钮配置,
+						 /*   {
+							   "type":"back",
+							   "float":"left"
+							   
+						   }, */
+			                   {
+			            		    "type":"none",
+			            		    "text":"\u2713",
+			            		    "float":"right"
+			                   }
+			                ],
+							 "searchInput":{
+							                             "align":"center",
+							                             "backgroundColor":"#eee",
+							                             "borderRadius":"5px", // 只能用px作单位
+							                             "placeholder":"请输入内容",
+							                             "placeholderColor":"#ccc"
+							                         }
+			            }
+						
+						}
+						}
+						
+		
 	},
 	{
 	    "path": "pages/login/login",

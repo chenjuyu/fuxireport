@@ -1,7 +1,18 @@
 {
-  "navigationStyle": "custom",
+  "navigationBarTitleText": "零售分析",
   "bounce": "none",
-  "titleNView": false,
+  "titleNView": {
+    "buttons": [
+      {
+        "type": "back",
+        "float": "left"
+      },
+      {
+        "type": "search",
+        "float": "right"
+      }
+    ]
+  },
   "usingComponents": {
     "uni-nav-bar": "/node-modules/@dcloudio/uni-ui/lib/uni-nav-bar/uni-nav-bar",
     "uni-segmented-control": "/components/uni-segmented-control/uni-segmented-control"

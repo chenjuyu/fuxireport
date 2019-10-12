@@ -1,10 +1,12 @@
 <template>
 	<view class="warp">
-		<uni-nav-bar left-icon="back" left-text="返回"  @click-left="leftclick" right-text="确定" @click-right="submit" fixed="true" :title="title" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
+	<!--	<uni-nav-bar left-icon="back" left-text="返回"  @click-left="leftclick" right-text="确定" @click-right="submit" fixed="true" :title="title" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
+	
 		<view style="position: relative; display: block;
 			z-index: 998;"><input type="text" style="height: 100upx;border-width: 1px;width: 100%;" v-model="keyword" placeholder="输入关键字查询"/></view>
 		<view style="margin-top: 10upx;display: block;position: relative;">
-		<uni-list>
+		<uni-list>	</uni-list>-->
+		 
 			  <checkbox-group @change="checkboxChange">
 			                <label class="uni-list-cell uni-list-cell-pd" v-for="item in items" :key="item.value">
 			                    <view>
@@ -15,7 +17,7 @@
 			  </checkbox-group>
 			 		<text class="loading-text">
 			 		{{loadingType === 0 ? contentText.contentdown : (loadingType === 1 ? contentText.contentrefresh : contentText.contentnomore)}}</text>
-		</uni-list>
+		
 	</view>
 		
 	</view>
@@ -63,6 +65,19 @@
 				                ],
 								condition:''//字符串
 			}
+		},
+			onNavigationBarButtonTap(e) {
+					if(e.index==0){ //点击左按扭
+					//this.leftclick()	
+					this.submit()	
+					}else if(e.index=1){
+					this.submit()	
+					}
+					console.log(e)		
+					
+				},
+		onNavigationBarSearchInputChanged(e){
+			console.log(e)	
 		},
 		onLoad(){
 			for(var i=1;i<=15 ;i++){
