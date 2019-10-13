@@ -9,7 +9,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.7.0",
   "appid": "touristappid",
-  "projectname": "fuxireport",
+  "projectname": "数据报表",
   "condition": {
     "search": {
       "current": -1,

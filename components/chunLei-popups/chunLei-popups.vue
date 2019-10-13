@@ -1,5 +1,5 @@
 <template>
-	<view class="mask" :class="!value?'':'mask-show'" @tap="tapMask">
+	<view class="mask"  :class="!value?'':'mask-show'" @tap="tapMask"> 
 		<view class="popups" :style="{top: popupsTop ,left: popupsLeft,flexDirection:direction}" :class="theme">
 			<text :class="placement" :style="{width:'0px',height:'0px'}"></text>
 			<view v-for="(item,index) in popData" :key="index" @tap.stop="tapItem(item)" class="itemChild" :class="direction=='row'?'solid-right':'solid-bottom'">

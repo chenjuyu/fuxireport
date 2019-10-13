@@ -3,11 +3,10 @@
 	{
 	    "path" : "pages/reportmenu/pos05",
 	    "style" : {
-			/* "navigationStyle":"custom",
-			 "bounce": "none",
-			 "titleNView":false */
+			  "enablePullDownRefresh" : false, 
 			  "navigationBarTitleText" : "零售分析",
 			 			       "app-plus": {
+								   
 			 			           "bounce": "none", //关闭窗口回弹效果
 			 			           "titleNView": {
 			 			               "buttons": [ //原生标题栏按钮配置,
@@ -16,11 +15,15 @@
 			 							   "float":"left"
 			 							   
 			 						   },
-			 			                   {
-			 			            		    "type":"search",
-			 			     
-			 			            		    "float":"right"
-			 			                   }
+			 			               {
+			 			            		    "float":"right",
+												"text": "\ue466",
+												"fontSrc": "/static/uni.ttf",
+												"fontSize": "22px",
+												"color": "#FFFFFF"
+												
+												
+			 			                }
 			 			                ]
 			 			            }
 			 			 

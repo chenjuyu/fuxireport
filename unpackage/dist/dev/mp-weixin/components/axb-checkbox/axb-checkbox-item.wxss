@@ -1,21 +1,127 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/*box-sizing: border-box; width: 150upx; display:inline-block;margin-right: 20upx;*/
 .radio {
-	display: inline-block;
-	height: 60rpx;
-	line-height: 60rpx;
-	padding: 0 22rpx;
-	border-radius: 10rpx;
-	font-size: 26rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
-	border: 1px solid #c3c3c3;
+		height: 70rpx;
+		line-height: 70rpx; 
+		border-radius: 10rpx;
+		font-size: 26rpx;
+		-webkit-box-sizing: border-box;
+		        box-sizing: border-box;
+		border: 1px solid #c3c3c3;
+		
+		text-align: center;
+	
+		overflow:hidden;
 }
-.radio:not(:last-child) {
-	margin: 0 20rpx 30rpx 0;
-}
+	/* overflow:hidden;text-overflow: ellipsis;
+	.radio:not(:last-child) {
+		margin: 30upx 20upx 30upx 30upx;
+	} 
+*/
 .radio-width-default {
-	width: 120rpx;
-	text-align: center;
-	padding: 0;
-}
+		width: 150rpx;
+		text-align: center;
+		padding: 0;
+}  
 

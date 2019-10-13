@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": false,
   "navigationBarTitleText": "零售分析",
   "bounce": "none",
   "titleNView": {
@@ -8,13 +9,18 @@
         "float": "left"
       },
       {
-        "type": "search",
-        "float": "right"
+        "float": "right",
+        "text": "",
+        "fontSrc": "/static/uni.ttf",
+        "fontSize": "22px",
+        "color": "#FFFFFF"
       }
     ]
   },
   "usingComponents": {
     "uni-nav-bar": "/node-modules/@dcloudio/uni-ui/lib/uni-nav-bar/uni-nav-bar",
-    "uni-segmented-control": "/components/uni-segmented-control/uni-segmented-control"
+    "uni-load-more": "/node-modules/@dcloudio/uni-ui/lib/uni-load-more/uni-load-more",
+    "uni-segmented-control": "/components/uni-segmented-control/uni-segmented-control",
+    "popups": "/components/chunLei-popups/chunLei-popups"
   }
 }

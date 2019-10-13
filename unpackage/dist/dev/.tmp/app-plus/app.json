@@ -53,7 +53,7 @@
     "alwaysShowBeforeRender": true,
     "autoclose": false
   },
-  "appname": "fuxireport",
+  "appname": "数据报表",
   "compilerVersion": "2.3.3",
   "usingComponents": {}
 }

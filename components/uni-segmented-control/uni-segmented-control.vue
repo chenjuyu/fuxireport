@@ -73,7 +73,8 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		width: 75%;
+		/*width: 75%;*/
+		width: 100%;
 		font-size: 28upx;
 		box-sizing: border-box;
 		margin: 0 auto;
@@ -90,7 +91,7 @@
 	.segmented-control-item {
 		flex: 1;
 		text-align: center;
-		line-height: 60upx;
+    	line-height: 60upx; 
 		box-sizing: border-box;
 		border-left: 1px solid
 	}
