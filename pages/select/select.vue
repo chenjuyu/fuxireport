@@ -1,70 +1,44 @@
 <template>
 	<view class="warp">
-	<!--	<uni-nav-bar left-icon="back" left-text="返回"  @click-left="leftclick" right-text="确定" @click-right="submit" fixed="true" :title="title" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
-	
-		<view style="position: relative; display: block;
-			z-index: 998;"><input type="text" style="height: 100upx;border-width: 1px;width: 100%;" v-model="keyword" placeholder="输入关键字查询"/></view>
-		<view style="margin-top: 10upx;display: block;position: relative;">
-		<uni-list>	</uni-list>-->
-		 
+		<view class="header">
+			<input class="uni-input" type="text" v-model="keyword" @input="input" confirm-type="search" placeholder="请输入内容查询" />
+		</view>
+		  <view class="uni-list">
 			  <checkbox-group @change="checkboxChange">
 			                <label class="uni-list-cell uni-list-cell-pd" v-for="item in items" :key="item.value">
 			                    <view>
-			                        <checkbox :value="item.value" :checked="item.checked" />
+			                        <checkbox :value="item.id" :checked="item.checked" />
 			                    </view>
-			                    <view>{{item.name}}</view>
+			                    <view>{{item.Name}}</view>
 			                </label>
 			  </checkbox-group>
-			 		<text class="loading-text">
-			 		{{loadingType === 0 ? contentText.contentdown : (loadingType === 1 ? contentText.contentrefresh : contentText.contentnomore)}}</text>
+		</view>	  
+			 		<view style=" display: flex; margin-top: 5upx;
+			 		  flex-direction: column; width: 100%;height: 20upx;">
+			 		<uni-load-more :status="loadingType" :showIcon="true"   ></uni-load-more>
+			 		</view>
 		
-	</view>
 		
 	</view>
 </template>
 
 <script>
 	import {uniList,uniLoadMore,uniNavBar} from "@dcloudio/uni-ui"
+	var self=this
 	export default {
 		 components: {uniList,uniLoadMore,uniNavBar},
 		data() {
 			return {
 				keyword:'',
 				title: '资料选择列表',
-				loadingType: 0,
-								contentText: {
-									contentdown: "上拉显示更多",
-									contentrefresh: "正在加载...",
-									contentnomore: "没有更多数据了"
-								},
-				                items: [{
-				                        value: 'USA',
-				                        name: '美国'
-				                    },
-				                    {
-				                        value: 'CHN',
-				                        name: '中国',
-				                        //checked: 'true'
-				                    },
-				                    {
-				                        value: 'BRA',
-				                        name: '巴西'
-				                    },
-				                    {
-				                        value: 'JPN',
-				                        name: '日本'
-				                    },
-				                    {
-				                        value: 'ENG',
-				                        name: '英国'
-				                    },
-				                    {
-				                        value: 'FRA',
-				                        name: '法国'
-				                    }
+				loadingType:'more',
+				                items: [
+				                       // value: 'USA',
+				                       // name: '美国'
+				                    
 				                ],
 								condition:''//字符串
-			}
+			} 
 		},
 			onNavigationBarButtonTap(e) {
 					if(e.index==0){ //点击左按扭
@@ -79,13 +53,112 @@
 		onNavigationBarSearchInputChanged(e){
 			console.log(e)	
 		},
-		onLoad(){
-			for(var i=1;i<=15 ;i++){
-				var map={}
-				map.value='USA'+i
-				map.name= '美国'+i
-				this.items.push(map)
+		onLoad(p){
+			
+			 self.items.splice(0,self.items.length)
+			 
+			if(p !=undefined && p!=null){
+			 var condition =p.hasOwnProperty('condition')?p.condition:''
+			 var Type =p.hasOwnProperty('Type')?p.Type:''
+			 var customerid=p.hasOwnProperty('customerid')?p.customerid:''
+			uni.request({
+				url:uni.getStorageSync('ip')+'/select.do?'+p.send,
+				data:{currPage:'1',param:condition,Type:Type,customerid:customerid},
+				method:'POST',
+				header:{
+					'token':uni.getStorageSync('token')
+				},
+				success:(res)=>{
+					var array =res.data.obj
+				for (var i=0;i<array.length;i++) {
+					var map={}
+					if(p.send=='getEmployee'){
+							map.id   = array[i].EmployeeID;
+							map.Name = array[i].Name;
+							self.items.push(map)
+						  
+					}else if(p.send=='getVip'){
+						for (var i=0;i<array.length;i++) {
+						   map.id=array[i].VIPID;
+						   map.Name = array[i].Name;
+						   map.Code=array[i].Code
+						   map.DiscountRate=array[i].DiscountRate
+						   map.PointRate=array[i].PointRate
+						   map.UsablePoint=array[i].UsablePoint
+						   self.items.push(map)
+						 }
+					}else if(p.send==='getPosSalesGoods' || p.send==='getSalesGoods'){
+                            map.id=array[i].GoodsID;
+                            map.Name = array[i].Name;
+                            map.Code=array[i].Code
+                            map.RetailSales=array[i].RetailSales
+                            map.UnitPrice=array[i].UnitPrice
+                            map.Discount=array[i].Discount
+                            map.DiscountFlag=array[i].DiscountFlag
+                            map.sizIndex=array[i].sizIndex
+                            self.items.push(map);
+                        }else if (p.send==='getColorByGoodsCode'){
+                            map.id=array[i].ColorID;
+                            map.Name = array[i].Name;
+                            self.items.push(map);
+                        }
+                        else if (p.send==='getSizeByGoodsCode'){
+                            map.id=array[i].SizeID;
+                            map.Name = array[i].Name;
+                            map.Code=array[i].SizeCode
+                            map.x=array[i].x
+                            self.items.push(map);
+                        } else if (p.send==='getCustomer'){
+                            map.id=array[i].CustomerID
+                            map.Name =array[i].Name
+                            map.DiscountRate=array[i].DiscountRate
+                            map.DistrictID=array[i].DistrictID
+                            map.OrderDiscount=array[i].OrderDiscount
+                            map.AllotDiscount=array[i].AllotDiscount
+                            map.ReplenishDiscount=array[i].ReplenishDiscount
+                            self.items.push(map);
+                        } else if(p.send==='getWarehouse'){
+                            map.id=array[i].DepartmentID
+                            map.Name=array[i].Name
+                            map.SettleCustID=array[i].SettleCustID
+                            map.MustExistsGoodsFlag=array[i].MustExistsGoodsFlag
+                            self.items.push(map);
+                        } else if (p.send==='getBrand'){
+                            map.id=array[i].BrandID
+                            map.Name=array[i].Name
+                            self.items.push(map);
+                        }else if(p.send =='getPaymentType'){
+                            map.id=array[i].PaymentTypeID
+                            map.Name=array[i].Name
+                            self.list.push(map);
+                        }else if(p.send=='getGoodsType'){
+                            map.id=array[i].GoodsTypeID
+                            map.Name=array[i].Name
+                            self.items.push(map);
+                        }else if(p.send=='getGoodsSupplier'){
+                            map.id=array[i].SupplierID
+                            map.Name=array[i].Name
+                            map.DiscountRate=array[i].DiscountRate
+                            self.items.push(map);
+                        }
+				}
+				},
+				fail:(res)=>{
+					uni.showToast({
+						icon:'none',
+						title: '网络请求异常'
+					})
+				}
+			})
+				
+				 
 			}
+		/*	for(var i=1;i<=15 ;i++){
+				var map={}
+				map.id='USA'+i
+				map.Name= '美国'+i
+				this.items.push(map)
+			} */
 		},
 		// 下拉刷新
 				onPullDownRefresh() {
@@ -94,17 +167,28 @@
 		// 上拉加载
 				onReachBottom: function() {
 					var ilen=this.items.length
+				if(ilen<=50){
 					setTimeout(()=>{
-						this.loadingType=1
+						this.loadingType ='loading'
 					for(var i=ilen;i<=ilen+15 ;i++){
 						var map={}
-						map.value='USA'+i
-						map.name= '美国'+i
+						map.id='USA'+i
+						map.Name= '美国'+i
 						                    
 						this.items.push(map)
 					}
 					}
 					,2000)
+					 this.loadingType ='more'
+			    }else{
+					uni.showToast({
+										icon:'none',
+										title:'已以没有更多数据了',
+										duration:2000
+										
+									})
+					this.loadingType ='noMore'
+				}
 				/*	console.log(_self.newsList.length);
 					if (_self.loadingType != 0) {//loadingType!=0;直接返回
 						return false;
@@ -150,8 +234,15 @@
 							       
 			                    }
 			                }
-		   }
+		   },input(e){
+			//console.log(JSON.stringify(e))
+			setTimeout(()=>{
+				console.log("关键字的值:"+this.keyword)
+			},2000)
+			
+		}
 		   ,submit(){
+			   console.log('获取到的内容:'+this.condition) 
 			   let pages = getCurrentPages();  //获取所有页面栈实例列表
 			   let nowPage = pages[ pages.length - 1];  //当前页页面实例
 			   let prevPage = pages[ pages.length - 2 ];  //上一页页面实例
@@ -172,10 +263,22 @@
 		display: flex;
 		flex-direction: column;
 	}
+	.header{
+		z-index: 9999;
+		width: 100%;
+		position: fixed;
+		top: 0upx;
+	}
+	.uni-input{
+		border-bottom-style: solid;
+		border-bottom-width: 1upx;
+		border-bottom-color: #DDDDDD;
+	}
 	.uni-list{
-		display: flex;
-		flex:1;
-		flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	margin-top: 100upx;
+	width: 100%;
 	}
 .uni-list-cell {
     justify-content: flex-start;
