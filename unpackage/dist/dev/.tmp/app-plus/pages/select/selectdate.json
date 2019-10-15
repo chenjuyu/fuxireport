@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "查询条件",
+  "bounce": "none",
+  "titleNView": {
+    "buttons": [
+      {
+        "type": "none",
+        "text": "✓",
+        "float": "right"
+      }
+    ]
+  },
+  "usingComponents": {
+    "w-picker": "/components/w-picker/w-picker"
+  }
+}

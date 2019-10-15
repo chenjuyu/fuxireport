@@ -101,7 +101,7 @@
 }
 .uni-grid-item-image {
 	width: 80rpx;
-	height: 80rpx
+	height: 80rpx;
 }
 .uni-grid .uni-grid__flex:first-child .uni-grid-item:after {
 	border-top-width: 1px

@@ -144,7 +144,8 @@
 
 	.uni-grid-item-image {
 		width: 80upx;
-		height: 80upx
+		height: 80upx;
+		
 	}
 
 	.uni-grid .uni-grid__flex:first-child .uni-grid-item:after {

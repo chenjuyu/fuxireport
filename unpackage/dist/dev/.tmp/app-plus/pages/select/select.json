@@ -8,14 +8,7 @@
         "text": "✓",
         "float": "right"
       }
-    ],
-    "searchInput": {
-      "align": "center",
-      "backgroundColor": "#eee",
-      "borderRadius": "5px",
-      "placeholder": "请输入内容",
-      "placeholderColor": "#ccc"
-    }
+    ]
   },
   "usingComponents": {
     "uni-list": "/node-modules/@dcloudio/uni-ui/lib/uni-list/uni-list",

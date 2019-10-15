@@ -1,7 +1,8 @@
 <template>
 	<view style="width: 100%;">
-	<uni-nav-bar left-icon="back" left-text="返回" @click-left="leftclick" @click-right="rightclick"  title="零售分析" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
-
+  <!--
+	<uni-nav-bar left-icon="back" left-text="返回" @click-left="leftclick" @click-right="rightclick"  title="报表菜单" shadow="false" background-color="#108ee9" color="#FFF" status-bar="false" ></uni-nav-bar>
+ -->
   <uniGrid :options="options" column-num="4">
   </uniGrid>
 </view>
@@ -14,7 +15,7 @@
 	    components: {uniNavBar,uniGrid},
 		data(){
 			return{
-				options:[{text:"零售分析",image:'../../static/img/pos.png',url:'reportmenu/pos05'}
+				options:[{text:"零售分析",image:'../../static/img/posHL.png',url:'./posreport'}
 			/*	{text:"采购明细表",image:'../../static/img/pos.png',url:'column/column'},
 				{text:"应付汇总表",image:'../../static/img/pos.png',url:'column/column'},
 				{text:"应付明细表",image:'../../static/img/pos.png',url:'column/column'} */
@@ -23,17 +24,17 @@
 		},methods:{
 		
 		leftclick(){
-			uni.showToast({
+		/*	uni.showToast({
 				title:'左点击aaa',
 				duration:2000
-			})
+			}) */
 			
 		},rightclick(){
 			uni.showToast({
 				 icon: 'none',
 				title:'右点击了子',
 				duration:2000
-			})
+			}) 
 		},clickgrid(e){
 			uni.showToast({
 				 icon: 'none',

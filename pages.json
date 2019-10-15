@@ -1,6 +1,15 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页, adjustResize
 	{
+	    "path": "pages/login/login",
+	    "style": {
+	        "navigationBarTitleText": "登录",
+			"app-plus": {
+			    "softinputMode": "adjustPan"
+			}
+	    }
+	   },
+	{
 	    "path" : "pages/reportmenu/pos05",
 	    "style" : {
 			  "enablePullDownRefresh" : false, 
@@ -31,6 +40,55 @@
 		}
 	},
 	{
+	    "path" : "pages/reportmenu/posreport",
+	    "style" : {
+			  "enablePullDownRefresh" : false, 
+			  "navigationBarTitleText" : "零售分析",
+			 			       "app-plus": {
+								   
+			 			           "bounce": "none", //关闭窗口回弹效果
+			 			           "titleNView": {
+			 			               "buttons": [ //原生标题栏按钮配置,
+			 						  /* { //如果不是第一个菜单，就不用左返回
+			 							   "type":"back",
+			 							   "float":"left"
+			 							   
+			 						   }, */
+			 			               {
+			 			            		    "float":"right",
+												"text": "\ue466",
+												"fontSrc": "/static/uni.ttf",
+												"fontSize": "22px",
+												"color": "#FFFFFF"
+												
+												
+			 			                }
+			 			                ]
+			 			            }
+			 			 
+			 		}
+		}
+	},{
+		"path":"pages/select/selectdate",
+		"style":{
+			 "navigationBarTitleText" : "查询条件",
+			"app-plus":{
+				"bounce": "none", //关闭窗口回弹效果
+				"titleNView": {
+				"buttons":[
+					
+						{
+									            		    "type":"none",
+									            		    "text":"\u2713",
+									            		    "float":"right"
+						}
+					
+				]	
+				}
+			}
+		}
+	},
+	{
 	    "path" : "pages/goodsdetail/goodsdetail",
 	    "style" : {
 			 "navigationStyle":"custom",
@@ -41,12 +99,25 @@
 	{
 			   "path": "pages/reportmenu/purchasemenu",
 			   "style": {
-				   
+				 /*  
 				   "navigationStyle":"custom",
 			       "bounce": "none",
 				   "titleNView":false
-				   
+				   */
+				  "navigationBarTitleText" : "报表菜单",
+				  "app-plus":{
+					  
+				  }
 			   }   
+	},
+	{
+	 "path": "pages/reportmenu/posreportdetail",
+	  "style":{
+		  "navigationBarTitleText" : "货品分析",
+		  "app-plus":{
+			  
+		  }
+	  }
 	},
 	{
 	    "path" : "pages/select/select",
@@ -69,7 +140,7 @@
 			            		    "text":"\u2713",
 			            		    "float":"right"
 			                   }
-			                ],
+			                ] /*,
 							 "searchInput":{
 							                             "align":"center",
 							                             "backgroundColor":"#eee",
@@ -77,6 +148,7 @@
 							                             "placeholder":"请输入内容",
 							                             "placeholderColor":"#ccc"
 							                         }
+													 */
 			            }
 						
 						}
@@ -84,15 +156,7 @@
 						
 		
 	},
-	{
-	    "path": "pages/login/login",
-	    "style": {
-	        "navigationBarTitleText": "登录",
-			"app-plus": {
-			    "softinputMode": "adjustPan"
-			}
-	    }
-	   },
+
 	   {
 		"path": "pages/login/ip",
 		"style": {

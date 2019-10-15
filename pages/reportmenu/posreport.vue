@@ -175,13 +175,13 @@
 		,onShow(){
 			console.log('condition:'+this.condition)
 		},onNavigationBarButtonTap(e) {
-			if(e.index==0){ //点击左按扭
+		/*	if(e.index==0){ //点击左按扭
 			this.leftclick()	
 			}else if(e.index=1){
-			this.rightclick()	
+				
 			}
-			console.log(e)		
-			
+			console.log(e) */		
+			this.rightclick()
 		}
 		,methods:{
 			inputPopup(e){
@@ -199,13 +199,13 @@
 					duration:2000
 				}) */
 			
-			this.showflag =false
+			
 			var send ='' //代表查询什么表
 			if(e.title=='店铺'){
 			  send='getWarehouse' 
 			}else if(e.title=='品类'){
 			  send ='getGoodsType'
-			}else if(t.title=='品牌'){
+			}else if(e.title=='品牌'){
 			  send ='getBrand'
 			}else if(e.title=='厂商'){
 			  send ='getGoodsSupplier'	
@@ -218,9 +218,15 @@
 					url:'../select/select?send='+send
 					
 				}) 
-				
+				this.showflag =false
 			},sitemclick(ls){
 			console.log(JSON.stringify(ls))	
+			uni.navigateTo({
+				url:'posreportdetail?id=1'
+			//	animationDuration:1000
+				
+			})
+			
 			},longpress(ls){
 			console.log('长按的操作:'+JSON.stringify(ls))	
 			},
@@ -280,9 +286,9 @@
 				});
 			}
 			,rightclick(){
-				uni.navigateTo({
+			/*	uni.navigateTo({
 				    url: '../select/select'
-				});
+				}); */
 			}
 			, onClickItem(index) {
             if (this.current !== index) {
@@ -356,7 +362,7 @@
 			}else if(index ==4){
 				console.log('index==4:')
 				uni.navigateTo({
-					url:'../select/select'
+					url:'../select/selectdate'
 					
 				}) 
 			}

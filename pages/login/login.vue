@@ -2,7 +2,7 @@
     <view class="content">
 		
         <view style="display: flex; justify-content: center;align-content: center;"> 
-		<image style="width: 80px; height: 80px; background-color: #eeeeee; border-radius: 40px; "  src="../../static/img/home_logo.png"></image>
+		<image style="width: 80px; height: 80px; background-color: #eeeeee; border-radius: 40px; "  src="../../static/img/report.png"></image>
         </view>
 		<view class="input-group">
             <view class="input-row border">
@@ -11,7 +11,7 @@
             </view>
             <view class="input-row">
                 <text class="title">密码：</text>
-                <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+                <m-input type="password" displayable v-model="password" confirm-type="send" @confirm="bindLogin" placeholder="请输入密码"></m-input>
             </view>
         </view>
         <view class="btn" @click="bindLogin">
@@ -30,7 +30,7 @@
 		-->
 		
 		<view style="display:flex;justify-content:flex-end;margin-top: 30px;">
-			<navigator url="ip">配置服务器地址</navigator>
+			<navigator url="ip"><text style="font-size: 30upx;">配置服务器地址</text></navigator>
 		</view>
 		
         <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
@@ -136,11 +136,27 @@
                  * 检测用户账号密码是否在已注册的用户列表中
                  * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
                  */
+				if(this.username.trim()==''){
+					uni.showToast({
+					    icon: 'none',
+					    title: '用户名不能为空'
+					});
+					return
+				}
+				if(this.password.trim()==''){
+					uni.showToast({
+					    icon: 'none',
+					    title: '密码不能为空'
+					});
+					return
+				}
+				
                 const data = {
                     username: this.username,
                     password: this.password
                 };
 				console.log('data的值'+JSON.stringify(data))
+				console.log('提交的ip'+JSON.stringify(data))
 				uni.request({
 				    url: this.ip+'/login.do?login', //仅为示例，并非真实接口地址。
 					method:'POST',
@@ -162,7 +178,8 @@
 			            //this.toMain(this.username);
 						this.login(res.data.obj.UserName);
 						uni.reLaunch({
-						    url: '../main/main',
+						   // url: '../main/main',
+						   url:'../reportmenu/purchasemenu'
 						});
 				
 					}else{
@@ -277,6 +294,8 @@
 	background-color: #108ee9;
 	justify-content: center;
 	align-items: center;
-	border-radius: 5px;
+	border-radius: 10upx;
+	margin-top: 30upx;
+	height: 80upx;
 }
 </style>

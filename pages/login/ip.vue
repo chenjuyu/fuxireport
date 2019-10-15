@@ -1,10 +1,11 @@
 <template>
 	 <view class="content">
 	 <view>	 
-	 <input type="text" v-model="ip"  />
+	 <input type="text" class="uni-input" v-model="ip"  />
 	 </view>
-	 <view class="btn-row">
-	     <button type="primary" class="primary" @tap="submit">保存</button>
+	 
+	 <view class="btn" @tap="submit">
+		<text style="font-size: 18px;color: #FFFFFF;">保存</text>
 	 </view>
 	 
 	 </view>
@@ -33,13 +34,21 @@
 				});
 			}
 			
-			
+			 
 		}	
 	}
 </script>
 
 <style>
-	.btn-row{
+	.btn{
+		margin-top: 20upx;
 		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: center; 
+		align-items: center;
+		border-radius: 10upx;
+		background-color: #108ee9;
+		height: 80upx;
 	}
 </style>

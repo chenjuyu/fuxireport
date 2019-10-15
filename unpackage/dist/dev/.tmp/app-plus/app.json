@@ -1,10 +1,13 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/reportmenu/pos05",
+    "pages/reportmenu/posreport",
+    "pages/select/selectdate",
     "pages/goodsdetail/goodsdetail",
     "pages/reportmenu/purchasemenu",
+    "pages/reportmenu/posreportdetail",
     "pages/select/select",
-    "pages/login/login",
     "pages/login/ip",
     "pages/main/main",
     "pages/reg/reg",
@@ -46,6 +49,12 @@
         "selectedIconPath": "static/img/posHL.png"
       }
     ]
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 300000,
+    "downloadFile": 3600000
   },
   "nvueCompiler": "weex",
   "renderer": "auto",

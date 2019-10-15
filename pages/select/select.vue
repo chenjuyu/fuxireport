@@ -24,13 +24,15 @@
 
 <script>
 	import {uniList,uniLoadMore,uniNavBar} from "@dcloudio/uni-ui"
-	var self=this
+	var that;
 	export default {
 		 components: {uniList,uniLoadMore,uniNavBar},
 		data() {
 			return {
 				keyword:'',
 				title: '资料选择列表',
+				currPage:1,
+				send:'',
 				loadingType:'more',
 				                items: [
 				                       // value: 'USA',
@@ -54,111 +56,12 @@
 			console.log(e)	
 		},
 		onLoad(p){
-			
-			 self.items.splice(0,self.items.length)
-			 
-			if(p !=undefined && p!=null){
-			 var condition =p.hasOwnProperty('condition')?p.condition:''
-			 var Type =p.hasOwnProperty('Type')?p.Type:''
-			 var customerid=p.hasOwnProperty('customerid')?p.customerid:''
-			uni.request({
-				url:uni.getStorageSync('ip')+'/select.do?'+p.send,
-				data:{currPage:'1',param:condition,Type:Type,customerid:customerid},
-				method:'POST',
-				header:{
-					'token':uni.getStorageSync('token')
-				},
-				success:(res)=>{
-					var array =res.data.obj
-				for (var i=0;i<array.length;i++) {
-					var map={}
-					if(p.send=='getEmployee'){
-							map.id   = array[i].EmployeeID;
-							map.Name = array[i].Name;
-							self.items.push(map)
-						  
-					}else if(p.send=='getVip'){
-						for (var i=0;i<array.length;i++) {
-						   map.id=array[i].VIPID;
-						   map.Name = array[i].Name;
-						   map.Code=array[i].Code
-						   map.DiscountRate=array[i].DiscountRate
-						   map.PointRate=array[i].PointRate
-						   map.UsablePoint=array[i].UsablePoint
-						   self.items.push(map)
-						 }
-					}else if(p.send==='getPosSalesGoods' || p.send==='getSalesGoods'){
-                            map.id=array[i].GoodsID;
-                            map.Name = array[i].Name;
-                            map.Code=array[i].Code
-                            map.RetailSales=array[i].RetailSales
-                            map.UnitPrice=array[i].UnitPrice
-                            map.Discount=array[i].Discount
-                            map.DiscountFlag=array[i].DiscountFlag
-                            map.sizIndex=array[i].sizIndex
-                            self.items.push(map);
-                        }else if (p.send==='getColorByGoodsCode'){
-                            map.id=array[i].ColorID;
-                            map.Name = array[i].Name;
-                            self.items.push(map);
-                        }
-                        else if (p.send==='getSizeByGoodsCode'){
-                            map.id=array[i].SizeID;
-                            map.Name = array[i].Name;
-                            map.Code=array[i].SizeCode
-                            map.x=array[i].x
-                            self.items.push(map);
-                        } else if (p.send==='getCustomer'){
-                            map.id=array[i].CustomerID
-                            map.Name =array[i].Name
-                            map.DiscountRate=array[i].DiscountRate
-                            map.DistrictID=array[i].DistrictID
-                            map.OrderDiscount=array[i].OrderDiscount
-                            map.AllotDiscount=array[i].AllotDiscount
-                            map.ReplenishDiscount=array[i].ReplenishDiscount
-                            self.items.push(map);
-                        } else if(p.send==='getWarehouse'){
-                            map.id=array[i].DepartmentID
-                            map.Name=array[i].Name
-                            map.SettleCustID=array[i].SettleCustID
-                            map.MustExistsGoodsFlag=array[i].MustExistsGoodsFlag
-                            self.items.push(map);
-                        } else if (p.send==='getBrand'){
-                            map.id=array[i].BrandID
-                            map.Name=array[i].Name
-                            self.items.push(map);
-                        }else if(p.send =='getPaymentType'){
-                            map.id=array[i].PaymentTypeID
-                            map.Name=array[i].Name
-                            self.list.push(map);
-                        }else if(p.send=='getGoodsType'){
-                            map.id=array[i].GoodsTypeID
-                            map.Name=array[i].Name
-                            self.items.push(map);
-                        }else if(p.send=='getGoodsSupplier'){
-                            map.id=array[i].SupplierID
-                            map.Name=array[i].Name
-                            map.DiscountRate=array[i].DiscountRate
-                            self.items.push(map);
-                        }
-				}
-				},
-				fail:(res)=>{
-					uni.showToast({
-						icon:'none',
-						title: '网络请求异常'
-					})
-				}
-			})
-				
-				 
-			}
-		/*	for(var i=1;i<=15 ;i++){
-				var map={}
-				map.id='USA'+i
-				map.Name= '美国'+i
-				this.items.push(map)
-			} */
+			 that =this
+			 console.log(JSON.stringify(p))
+			 that.items.splice(0,that.items.length)
+			  console.log(uni.getStorageSync('ip')+'/select.do?'+p.send)
+			  that.send =p.send
+		      that.getdata(p)
 		},
 		// 下拉刷新
 				onPullDownRefresh() {
@@ -166,53 +69,11 @@
 				},
 		// 上拉加载
 				onReachBottom: function() {
-					var ilen=this.items.length
-				if(ilen<=50){
-					setTimeout(()=>{
-						this.loadingType ='loading'
-					for(var i=ilen;i<=ilen+15 ;i++){
-						var map={}
-						map.id='USA'+i
-						map.Name= '美国'+i
-						                    
-						this.items.push(map)
-					}
-					}
-					,2000)
-					 this.loadingType ='more'
-			    }else{
-					uni.showToast({
-										icon:'none',
-										title:'已以没有更多数据了',
-										duration:2000
-										
-									})
-					this.loadingType ='noMore'
-				}
-				/*	console.log(_self.newsList.length);
-					if (_self.loadingType != 0) {//loadingType!=0;直接返回
-						return false;
-					}
-					_self.loadingType = 1;
-					uni.showNavigationBarLoading();//显示加载动画
-					uni.request({
-						url:'../../static/data/news.json?page='+page,
-						success: function(res) {
-							if (_self.newsList.length==res.data.pages_count) {//没有数据
-								_self.loadingType = 2;
-								uni.hideNavigationBarLoading();//关闭加载动画
-								return false;
-							}
-							page++;//每触底一次 page +1
-							// console.log(page);
-							for(var i=_self.newsList.length;i<res.data.pages_count;i++){
-								_self.newsList = _self.newsList.concat(res.data.data[i]);//将数据拼接在一起
-							}
-							_self.loadingType = 0;//将loadingType归0重置
-							uni.hideNavigationBarLoading();//关闭加载动画
-							
-						}
-					}); */
+				var p={}
+				that.currPage =Number(that.currPage)+Number(1)	
+				p.condition=that.keyword
+				p.send=that.send
+				that.getdata(p)	
 				},
 		methods: {
 			leftclick(){
@@ -236,12 +97,19 @@
 			                }
 		   },input(e){
 			//console.log(JSON.stringify(e))
+			var p={}
+			p.send=that.send
+			that.items.splice(0,that.items.length)
 			setTimeout(()=>{
 				console.log("关键字的值:"+this.keyword)
-			},2000)
+				that.currPage =1
+				p.condition =this.keyword
+				
+				that.getdata(p)
+				
+			},0)
 			
-		}
-		   ,submit(){
+		},submit(){
 			   console.log('获取到的内容:'+this.condition) 
 			   let pages = getCurrentPages();  //获取所有页面栈实例列表
 			   let nowPage = pages[ pages.length - 1];  //当前页页面实例
@@ -251,7 +119,125 @@
 			   	delta: 1
 			   })
 			  
-		   }
+		   },getdata(p){
+			 console.log('getdata方法中的'+JSON.stringify(p))
+			
+			if(p !=undefined && p!=null){
+				
+			 var condition =p.hasOwnProperty('condition')?p.condition:''
+			 var Type =p.hasOwnProperty('Type')?p.Type:''
+			 var customerid=p.hasOwnProperty('customerid')?p.customerid:''
+			 console.log(this.currPage)
+			  console.log('conditionddd:'+condition)
+			   console.log('Type:'+Type)
+			   console.log('customerid:'+customerid)
+			uni.request({
+				url:uni.getStorageSync('ip')+'/select.do?'+p.send,
+				data:{currPage:this.currPage,param:condition,Type:Type,customerid:customerid},
+				method:'POST',
+				header:{
+					'Content-Type': 'application/x-www-form-urlencoded', //自定义请求头信息
+					'token':uni.getStorageSync('token')
+				},
+				success:(res)=>{
+					
+					console.log('getdata中的res:'+JSON.stringify(res))
+					var array =res.data.obj || []
+					
+					if(array.length ==0){
+						uni.showToast({
+							icon:'none',
+							title:'没有更多数据了'
+						})
+					that.loadingType='noMore'	
+					
+					return
+					}
+					
+					this.loadingType ='loading'
+				for (var i=0;i<array.length;i++) {
+					var map={}
+					if(p.send=='getEmployee'){
+							map.id   = array[i].EmployeeID;
+							map.Name = array[i].Name;
+							that.items.push(map)
+						  
+					}else if(p.send=='getVip'){
+						for (var i=0;i<array.length;i++) {
+						   map.id=array[i].VIPID;
+						   map.Name = array[i].Name;
+						   map.Code=array[i].Code
+						   map.DiscountRate=array[i].DiscountRate
+						   map.PointRate=array[i].PointRate
+						   map.UsablePoint=array[i].UsablePoint
+						   that.items.push(map)
+						 }
+					}else if(p.send==='getPosSalesGoods' || p.send==='getSalesGoods'){
+			                map.id=array[i].GoodsID;
+			                map.Name = array[i].Name;
+			                map.Code=array[i].Code
+			                map.RetailSales=array[i].RetailSales
+			                map.UnitPrice=array[i].UnitPrice
+			                map.Discount=array[i].Discount
+			                map.DiscountFlag=array[i].DiscountFlag
+			                map.sizIndex=array[i].sizIndex
+			                that.items.push(map);
+			            }else if (p.send==='getColorByGoodsCode'){
+			                map.id=array[i].ColorID;
+			                map.Name = array[i].Name;
+			                that.items.push(map);
+			            }
+			            else if (p.send==='getSizeByGoodsCode'){
+			                map.id=array[i].SizeID;
+			                map.Name = array[i].Name;
+			                map.Code=array[i].SizeCode
+			                map.x=array[i].x
+			                that.items.push(map);
+			            } else if (p.send==='getCustomer'){
+			                map.id=array[i].CustomerID
+			                map.Name =array[i].Name
+			                map.DiscountRate=array[i].DiscountRate
+			                map.DistrictID=array[i].DistrictID
+			                map.OrderDiscount=array[i].OrderDiscount
+			                map.AllotDiscount=array[i].AllotDiscount
+			                map.ReplenishDiscount=array[i].ReplenishDiscount
+			                that.items.push(map);
+			            } else if(p.send==='getWarehouse'){
+			                map.id=array[i].DepartmentID
+			                map.Name=array[i].Name
+			                map.SettleCustID=array[i].SettleCustID
+			                map.MustExistsGoodsFlag=array[i].MustExistsGoodsFlag
+			                that.items.push(map);
+			            } else if (p.send==='getBrand'){
+			                map.id=array[i].BrandID
+			                map.Name=array[i].Name
+			                that.items.push(map);
+			            }else if(p.send =='getPaymentType'){
+			                map.id=array[i].PaymentTypeID
+			                map.Name=array[i].Name
+			                that.list.push(map);
+			            }else if(p.send=='getGoodsType'){
+			                map.id=array[i].GoodsTypeID
+			                map.Name=array[i].Name
+			                that.items.push(map);
+			            }else if(p.send=='getGoodsSupplier'){
+			                map.id=array[i].SupplierID
+			                map.Name=array[i].Name
+			                map.DiscountRate=array[i].DiscountRate
+			                that.items.push(map);
+			            }
+				}
+				this.loadingType ='more'
+				},
+				fail:(res)=>{
+					uni.showToast({
+						icon:'none',
+						title: '网络请求异常'
+					})
+				}
+			})	 
+			}
+		}
 		}
 	}
 </script>
