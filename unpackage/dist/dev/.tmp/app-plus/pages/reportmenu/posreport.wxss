@@ -80,11 +80,23 @@
 		background-color: #8F8F94;
 }
 .textbox{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
 		margin-right: 10rpx;
 		height: 70rpx;
-	/*	width: 200upx; */
-		text-align: center;
+	/*	width: 200upx; 
+		text-align: center;*/
+		-webkit-box-pack: start;
+		-webkit-justify-content: flex-start;
+		    -ms-flex-pack: start;
+		        justify-content: flex-start;
 		line-height: 70rpx;
+		white-space: nowrap;
+		overflow: hidden;
+		-o-text-overflow: ellipsis;
+		   text-overflow: ellipsis;
 }
 .footer{
 	 display: -webkit-box;

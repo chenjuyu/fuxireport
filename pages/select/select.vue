@@ -62,8 +62,11 @@
 			  console.log(uni.getStorageSync('ip')+'/select.do?'+p.send)
 			  that.send =p.send
 		      that.getdata(p)
+		},onBackPress(){
+		console.log('onBackPress')	//navigateBack 会执行这个所以这里不能这样写了
+	
 		},
-		// 下拉刷新
+		// 下拉刷新 
 				onPullDownRefresh() {
 				//	this.getNewsList();
 				},
@@ -114,7 +117,10 @@
 			   let pages = getCurrentPages();  //获取所有页面栈实例列表
 			   let nowPage = pages[ pages.length - 1];  //当前页页面实例
 			   let prevPage = pages[ pages.length - 2 ];  //上一页页面实例
+
 			   prevPage.$vm.condition = this.condition;   //修改上一页data里面的searchVal参数值为1211
+			   prevPage.$vm.isDoRefresh = true; //一个界面的变量
+			   console.log('上一个页面的prevPage值：'+prevPage.toString())
 			   uni.navigateBack({  //uni.navigateTo跳转的返回，默认1为返回上一级
 			   	delta: 1
 			   })

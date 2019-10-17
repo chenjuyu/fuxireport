@@ -9,7 +9,7 @@
 	</view>
 		   <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="button" active-color="#108ee9"></uni-segmented-control>   
 				<view class="headtitle">
-					<view class="textbox" :style="{width:txtwidht+'upx'}" :key="ti" v-for="(titem,ti) in headtitle">
+					<view class="textbox" :style="{width:titem.title=='名次'?'100upx':txtwidht+'upx'}" :key="ti" v-for="(titem,ti) in headtitle">
 						<text style="font-size: 35upx;">{{titem.title}}</text>
 					</view>
 				</view>
@@ -18,12 +18,13 @@
 					  <!-- <view v-show="current === 0"> --> <!-- :style="{'height':height+'px'}"--> 
 				<view class="content1">
 		                            <view class="scrollitem" hover-class="hoverclass" @longpress="longpress(ls)"  v-for="(ls,index) in datalist " :key="index"  @click="sitemclick(ls)">
-										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;"> {{index+1}} </text> </view>
+										<view class="textbox" :style="{width:'100upx'}">  <text style="font-size: 28upx;"> {{index+1}} </text> </view>
 										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.Name}}</text> </view>
 										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.Quantity}}</text> </view>
-										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.Amount}}</text> </view>
-								        <view class="textbox" v-if="current==1 || current==2 || current==3" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.LvStr}}</text> </view>
-									    <view class="textbox" v-if="current==5" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.UnitPrice}}</text> </view>
+										<view class="textbox" v-if="current !=5" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.FactAmount}}</text> </view>
+								       <view class="textbox" v-if="current ==5" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.RetailSales}}</text> </view>
+										<view class="textbox" v-if="current==1 || current==2 || current==3" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.LvStr}}</text> </view>
+									    <view class="textbox" v-if="current==5" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.AvgPrice}}</text> </view>
 									 </view>
 		                                  										   
 		            
@@ -52,8 +53,8 @@
 	<view class="footer">
 	<view class="footer1">
 		<text style="font-size: 35upx;color: #696969;">合计:</text>
-		<text style="font-size: 35upx;color: #696969;margin-left: 200upx;">255</text>
-		<text style="font-size: 35upx;color: #696969;margin-left: 80upx;">30000.00</text>
+		<text style="font-size: 35upx;color: #696969;margin-left: 200upx;">{{totalQty}}</text>
+		<text style="font-size: 35upx;color: #696969;margin-left: 80upx;">{{totalAmt}}</text>
 	</view>	
 	
 	<view style="display: flex;flex-direction: row;">
@@ -75,13 +76,19 @@
 </template>
 
 <script>
+	import {
+	    mapState
+	} from 'vuex'
+	
 	import {uniNavBar,uniLoadMore} from '@dcloudio/uni-ui'
 	import uniSegmentedControl from '../../components/uni-segmented-control/uni-segmented-control.vue'
 	import popups from '../../components/chunLei-popups/chunLei-popups.vue'
 	import module1 from '../../jstools/mytool.js'
 	const datestr = module1.formatDate(new Date(),'yyyy-MM-dd')
 	const { screenWidth,screenHeight,windowWidth, windowHeight,navigationBarHeight } = uni.getSystemInfoSync(); //获取屏幕的高度与宽度
+	var that;
 	export default{
+		computed: mapState(['forcedLogin', 'hasLogin', 'userName','userinfor']),
 		components: {uniNavBar,uniSegmentedControl,popups,uniLoadMore},
 		data(){
 			return{
@@ -91,16 +98,22 @@
 				current: 0,
 				BeginDate:datestr,
 				EndDate:datestr	,
-				condition:'',//用于存储多选条件的在选择页用到 数组
+				condition:[],//用于存储多选条件的在选择页用到 数组
+				strcondition:'',//这个是查询条件了
 				loggingtype:'more',//防止多次滑动标志，加载条数不正确
 				scrollTop: 0,
 				old: {
 			    scrollTop: 0
 				      },
 				height:Number(windowHeight)-Number(160), // +Number(44),
-				datalist:[
+				datalist:[//显示列表
 					
 				],
+				totallist:[],//总记录返回的都放在这里
+				currpage:1,//当前页
+				totalQty:0,//数量金额合计
+				totalAmt:0,
+				isDoRefresh:true,//是否重新查询条件onshow方法的，因返回都会经过此方法
 				headtitle:[{title:'名次'},{title:'店铺'},{title:'数量'},{title:'金额'}],
 				txtwidht:200,
 				chosemenu:[{title:'店铺类别'},{title:'店铺'}],
@@ -111,57 +124,42 @@
 			}
 		}
 		,onLoad(p){
+			that =this
 			console.log('x宽度:'+this.x)
 			console.log('y高度:'+this.y)
 			console.log('可用宽度:'+windowWidth)
 			console.log('可用高度:'+windowHeight)
 			console.log('高度:'+this.height)
-		
-			uni.showLoading({
-				title:'正在加载数据',
-				mask:true
-			})	
-			for(var i=1;i<=15;i++){
-					var map={}
-					map.Name='文山'+i
-					map.Quantity=i
-					map.Amount=10+i
-					this.datalist.push(map)
-				}
-			uni.hideLoading()
-		/*	setTimeout(()=>{
-				
-			},3000) */
 		  
 		},onReady(){
 		console.log('onReady')
+		console.log('state中的userinfor:'+JSON.stringify(this.userinfor))
 		},onBackPress(){
 		console.log('onBackPress')	
 		
-		},onReachBottom(){ //页面上拉
+		},onReachBottom(){ //页面上拉  that.currPage 默认为1 上拉加1
 			//  console.log(e)
-				var len=this.datalist.length
-				console.log('长度:'+len)
-				if(len <=50){
+			that.currPage =Number(that.currPage)+Number(1)
+			var len=this.datalist.length
+			 if(len <= this.totallist.length){
 					//this.loggingtype='loading'
 					uni.showLoading({
 						title:'正在加载...',
 						mask:true
 					})
-					setTimeout(()=>{
-					
-							for(var i=len;i<=len+15;i++){
-								var map={}
-								map.Name='文山'+i
-								map.Quantity=i
-								map.Amount=10+i
-								this.datalist.push(map)
-							} 
-							
-							
-						
+					setTimeout(()=>{			
+					if(that.currPage ==1){
+					that.getData()	
+					}else if(that.currPage>1){
+					 //从列表取，不再网络请求
+					var tmplist=that.pagination(that.currPage, 15, that.totallist)
+					for(var i=0;i<tmplist.length;i++){
+						that.datalist.push(tmplist[i])
+					}
+						 
+					}	
 					},2000) 
-			 uni.hideLoading()
+			       uni.hideLoading()
 			this.loggingtype='more'
 				}else{
 			uni.showToast({
@@ -174,6 +172,31 @@
 		}
 		,onShow(){
 			console.log('condition:'+this.condition)
+			console.log('this.isDoRefresh的值:'+this.isDoRefresh)
+			if(this.isDoRefresh){
+			that.currpage=1 //切换重新获取
+			if(this.condition.length>0){
+				//debugger
+				var str1=''
+				if(this.condition.length>1){
+				
+					for(var i=0;i<this.condition.length;i++){
+						if(i==this.condition.length-1){
+						str1 =str1+"'"+this.condition[i]+"'"
+						}else{
+						str1 =str1+"'"+this.condition[i]+"',"	
+						}
+						console.log('str1:'+str1)
+					}
+				     this.strcondition =str1
+				  } else {
+				this.strcondition ="'"+this.condition[0]+"'"	
+				}
+				console.log('改变后的this.strcondition:'+this.strcondition)
+			}
+			
+			that.getData()
+			}//isDoRefresh 结束
 		},onNavigationBarButtonTap(e) {
 		/*	if(e.index==0){ //点击左按扭
 			this.leftclick()	
@@ -220,12 +243,15 @@
 				}) 
 				this.showflag =false
 			},sitemclick(ls){
-			console.log(JSON.stringify(ls))	
+			console.log(JSON.stringify(ls))
+			console.log('hostName:'+this.userinfor.hostName)
+			if(this.items[this.current] !='销售排行'){
 			uni.navigateTo({
-				url:'posreportdetail?id=1'
+				url:'posreportdetail?id='+ls.keyid
 			//	animationDuration:1000
 				
 			})
+			}
 			
 			},longpress(ls){
 			console.log('长按的操作:'+JSON.stringify(ls))	
@@ -233,53 +259,6 @@
 			chose(){
 			this.showflag =true	
 			},
-			        upper: function(e) {
-			           // console.log(e)
-			        },
-			        lower: function(e) {
-			          //  console.log(e)
-						var len=this.datalist.length
-						console.log('长度:'+len)
-						if(len <=50){
-							this.loggingtype='loading'
-							setTimeout(()=>{
-								
-									for(var i=len;i<=len+15;i++){
-										var map={}
-										map.Name='文山'+i
-										map.Quantity=i
-										map.Amount=10+i
-										this.datalist.push(map)
-									} 
-									
-									
-								
-							},2000) 
-					uni.hideLoading()
-					this.loggingtype='more'
-						}else{
-					uni.showToast({
-						icon:'none',
-						title:'没有更多数据了',
-						duration:2000
-					})	
-					return
-						}
-			        },
-			        scroll: function(e) {
-			           // console.log(e)
-			            this.old.scrollTop = e.detail.scrollTop
-			        },
-			        goTop: function(e) {
-			            this.scrollTop = this.old.scrollTop
-			            this.$nextTick(function() {
-			                this.scrollTop = 0
-			            });
-			            uni.showToast({
-			                icon:"none",
-			                title:"纵向滚动 scrollTop 值已被修改为 0"
-			            })
-			        },
 			leftclick(){
 				uni.navigateBack({
 				    delta: 1
@@ -327,13 +306,16 @@
 				}else if(this.current==5){
 					this.headtitle =[{title:'名次'},{title:'货号'},{title:'数量'},{title:'零售价'},{title:'平均售价'}]
 					this.chosemenu =[{title:'货号'}]
-					for(var i=0;i<this.datalist.length;i++){
+				/*	for(var i=0;i<this.datalist.length;i++){
 						//console.log('aaaa')
 						Vue.set(this.datalist[i],'UnitPrice','15500.00')
 						//console.log(this.datalist[i].LvStr)
-					} 
+					}  */
 					this.$refs.vpop.popupsPosition() //调用资料选择菜单的位置
 				}
+				that.currpage=1 //切换重新获取
+				this.strcondition=''
+				that.getData()
             }
             }
 			, onClickItem0(index) {
@@ -343,22 +325,30 @@
 			if(index==0){
 				this.BeginDate =datestr
 				this.EndDate =datestr	
+				 that.currpage=1 //切换重新获取
+				that.getData()
 			}else if(index==1){
 				  var date =new Date()
 				    module1.AddDays(date,-1) //使用了set 方法不会返回值
 				  //this.log('昨天的数据：'+date)
 				this.BeginDate=module1.formatDate(date,'yyyy-MM-dd')
 				this.EndDate=module1.formatDate(date,'yyyy-MM-dd')
+				 that.currpage=1 //切换重新获取
+				that.getData()
 			}else if(index==2){
 				var date2 =new Date()
 				 module1.AddDays(date2,-7) //使用了set 方法不会返回值
 				this.BeginDate=module1.formatDate(date2,'yyyy-MM-dd')
 				 this.EndDate=module1.formatDate(new Date(),'yyyy-MM-dd')
+				  that.currpage=1 //切换重新获取
+				 that.getData()
 			}else if(index==3){
 				var date2 =new Date()
 				 module1.AddDays(date2,-30) //使用了set 方法不会返回值
 			   this.BeginDate=module1.formatDate(date2,'yyyy-MM-dd')
 				this.EndDate=module1.formatDate(new Date(),'yyyy-MM-dd')
+				 that.currpage=1 //切换重新获取
+				that.getData()
 			}else if(index ==4){
 				console.log('index==4:')
 				uni.navigateTo({
@@ -367,10 +357,62 @@
 				}) 
 			}
 			
-		 },getData(){ //获取数据并传参数
+		 },getData(){ //获取数据并传参数 重新获取时 要重置
+		 uni.showLoading({
+		 	title:'正在加载',
+			mask:true
+		 })
+		     that.datalist.splice(0,that.datalist.length)
+			uni.request({
+			 	url:uni.getStorageSync('ip')+'/salesTicket.do?report88',
+			 	data:{hostName:uni.getStorageSync('hostName'),BeginDate:this.BeginDate,EndDate:this.EndDate,disType:this.items[this.current],Condition:this.strcondition},
+			 	method:'POST',
+			 	header:{
+			 		'Content-Type': 'application/x-www-form-urlencoded', //自定义请求头信息
+			 		'token':uni.getStorageSync('token')
+			 	},success:(res)=>{
+					that.totallist =res.data.obj || []
+					if(that.totallist.length ==0){
+						uni.showToast({
+							icon:'none',
+							title:'暂无数据返回'
+						})
+						return
+					}else{
+					
+					var array=that.pagination(that.currpage,15,that.totallist)
+					for(var i=0;i<array.length;i++){
+						that.datalist.push(array[i])
+					}
+					that.total()			
+					}
+					uni.hideLoading()
+				},
+				fail:(res)=>{
+					uni.showToast({
+						icon:'none',
+						title: '网络请求异常'
+					})
+					uni.hideLoading()
+				},
+			});
 			 
-			 
-		 }
+		 },pagination(pageNo, pageSize, array) { //分页
+                var offset = (pageNo - 1) * pageSize;
+                return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
+          },total(){ //数量金额合计
+		  var qty=0,amt=0
+			  for(var i=0;i<that.totallist.length;i++){
+				 qty =Number(qty)+Number(that.totallist[i].Quantity)
+				 amt =Number(amt)+Number(that.totallist[i].FactAmount)
+			  }
+			  if(qty){
+			   that.totalQty=qty
+			   }
+			   if(amt){
+			   that.totalAmt =parseFloat(amt).toFixed(2)	   
+			   }
+		  }
 		 
 		}
 	}
@@ -427,11 +469,16 @@
 		background-color: #8F8F94;
 	}
 	.textbox{
+		display: flex;
 		margin-right: 10upx;
 		height: 70upx;
-	/*	width: 200upx; */
-		text-align: center;
+	/*	width: 200upx; 
+		text-align: center;*/
+		justify-content: flex-start;
 		line-height: 70upx;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.footer{
 	 display: flex;	

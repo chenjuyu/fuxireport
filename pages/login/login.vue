@@ -175,8 +175,16 @@
 				        console.log("登录信息："+JSON.stringify(res));
 						console.log('登录信息token:'+uni.getStorageSync('token'));
 				        //this.text = 'request success'; 
-			            //this.toMain(this.username);
-						this.login(res.data.obj.UserName);
+			            //this.toMain(this.username); res.data.obj.UserName
+						var userinfor =res.data.obj
+						    userinfor.hostName ='appreport'+res.data.obj.UserID
+						this.login(userinfor);
+						uni.setStorageSync(
+							'hostName',
+							'appreport'+res.data.obj.UserID
+						)
+					//	this.$store.hostName='appreport'+res.data.obj.UserID
+					//	console.log('hostNameXXX:'+this.$store.hostName)
 						uni.reLaunch({
 						   // url: '../main/main',
 						   url:'../reportmenu/purchasemenu'
