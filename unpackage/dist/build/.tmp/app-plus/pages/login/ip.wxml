@@ -1,0 +1,1 @@
+<view class="content"><view><input class="uni-input" type="text" data-event-opts="{{[['input',[['__set_model',['','ip','$event',[]]]]]]}}" value="{{ip}}" bindinput="__e"/></view><view data-event-opts="{{[['tap',[['submit',['$event']]]]]}}" class="btn" bindtap="__e"><text style="font-size:18px;color:#FFFFFF;">保存</text></view></view>

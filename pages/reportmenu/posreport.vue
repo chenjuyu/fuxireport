@@ -9,21 +9,21 @@
 	</view>
 		   <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="button" active-color="#108ee9"></uni-segmented-control>   
 				<view class="headtitle">
-					<view class="textbox" :style="{width:titem.title=='名次'?'100upx':txtwidht+'upx'}" :key="ti" v-for="(titem,ti) in headtitle">
+					<view class="textbox"  :style="{width:ti==0?'100upx':widthstyle(ti)+'upx','margin-right':ti==0?'10upx':'0'}" :key="ti" v-for="(titem,ti) in headtitle">
 						<text style="font-size: 35upx;">{{titem.title}}</text>
 					</view>
 				</view>
-	</view> <!-- 头部结束-->			
+	</view> <!-- 头部结束 titem.title=='名次'?'':txtwidht+'upx'-->			
                 
 					  <!-- <view v-show="current === 0"> --> <!-- :style="{'height':height+'px'}"--> 
 				<view class="content1">
 		                            <view class="scrollitem" hover-class="hoverclass" @longpress="longpress(ls)"  v-for="(ls,index) in datalist " :key="index"  @click="sitemclick(ls)">
-										<view class="textbox" :style="{width:'100upx'}">  <text style="font-size: 28upx;"> {{index+1}} </text> </view>
-										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.Name}}</text> </view>
+										<view class="textbox" :style="{width:'100upx','margin-right':ti==0?'10upx':'0'}">  <text style="font-size: 28upx;"> {{index+1}} </text> </view>
+										<view class="textbox" :style="{width:'400upx'}">  <text style="font-size: 28upx;">{{ls.Name}}</text> </view>
 										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.Quantity}}</text> </view>
 										<view class="textbox" v-if="current !=5" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.FactAmount}}</text> </view>
 								       <view class="textbox" v-if="current ==5" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.RetailSales}}</text> </view>
-										<view class="textbox" v-if="current==1 || current==2 || current==3" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.LvStr}}</text> </view>
+										<view class="textbox" v-if="current==1 || current==2 || current==3" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.Lv}}</text> </view>
 									    <view class="textbox" v-if="current==5" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.AvgPrice}}</text> </view>
 									 </view>
 		                                  										   
@@ -59,10 +59,10 @@
 	
 	<view style="display: flex;flex-direction: row;">
 		 
-	<view class="footer2">	
+	<view @click="chose(2)" class="footer2">	
 	<text style="font-size: 35upx;color: #696969;">排序</text>	
 	</view>
-	<view @click="chose" style="display: flex;width: 375upx;justify-content: center;height: 60upx;padding-top: 19upx;">
+	<view @click="chose(1)" style="display: flex;width: 375upx;justify-content: center;height: 60upx;padding-top: 19upx;">
 		<text style="font-size: 35upx;color: #696969;">筛选</text> 
     </view>
 	
@@ -71,6 +71,8 @@
 	</view>	
 			<!-- @input="inputPopup"-->
 			<popups :popData="chosemenu" :x="x" :y="y" ref="vpop"  @tapPopup="Popup" @input="inputPopup"  :value="showflag" placement="bottom-end"></popups>
+			
+			<popups :popData="sortmenu" :x="x2" :y="y" ref="vsort"  @tapPopup="Popup2" @input="inputPopup"  :value="vsortshow" placement="bottom-start"></popups>
 			
 	</view>
 </template>
@@ -115,11 +117,15 @@
 				totalAmt:0,
 				isDoRefresh:true,//是否重新查询条件onshow方法的，因返回都会经过此方法
 				headtitle:[{title:'名次'},{title:'店铺'},{title:'数量'},{title:'金额'}],
-				txtwidht:200,
+				txtwidht:150,
 				chosemenu:[{title:'店铺类别'},{title:'店铺'}],
+				sortmenu:[{title:'金额'},{title:'数量'}],
 				screenHeight:screenHeight,
 				showflag:false ,//气泡菜单参数
+				vsortshow:false,
+				descflag:true,//金额降序排序
 				x:Number(screenWidth)-Number(screenWidth/5),
+				x2:Number(screenWidth)/5,
 				y:Number(screenHeight)-Number(80)
 			}
 		}
@@ -139,7 +145,7 @@
 		
 		},onReachBottom(){ //页面上拉  that.currPage 默认为1 上拉加1
 			//  console.log(e)
-			that.currPage =Number(that.currPage)+Number(1)
+			that.currpage =Number(that.currpage)+Number(1)
 			var len=this.datalist.length
 			 if(len <= this.totallist.length){
 					//this.loggingtype='loading'
@@ -148,11 +154,11 @@
 						mask:true
 					})
 					setTimeout(()=>{			
-					if(that.currPage ==1){
+					if(that.currpage ==1){
 					that.getData()	
-					}else if(that.currPage>1){
+					}else if(that.currpage>1){
 					 //从列表取，不再网络请求
-					var tmplist=that.pagination(that.currPage, 15, that.totallist)
+					var tmplist=that.pagination(that.currpage, 15, that.totallist)
 					for(var i=0;i<tmplist.length;i++){
 						that.datalist.push(tmplist[i])
 					}
@@ -207,6 +213,13 @@
 			this.rightclick()
 		}
 		,methods:{
+			widthstyle(id){ //定位标题的宽度
+				if(id==1){ //店铺标题
+					return 400
+				}else if(id !=0 && id !=1){
+					return 150
+				}
+			},
 			inputPopup(e){
 			/*	uni.showToast({
 					icon:'none',
@@ -214,6 +227,7 @@
 					duration:2000
 				}) */
 				this.showflag =e
+				this.vsortshow =e
 			},
 			Popup(e){
 			/*	uni.showToast({
@@ -242,6 +256,31 @@
 					
 				}) 
 				this.showflag =false
+				
+			},Popup2(e){
+				this.vsortshow =false
+				if(e.title=='金额' && this.descflag){//默认是降序
+				this.descflag =false 	
+				this.datalist.sort(this.compare('FactAmount'))
+                // console.log(arr.sort(compare('FactAmount')))
+				}else if(e.title=='金额' && !this.descflag){
+					this.descflag =true 
+				this.datalist.sort(this.compare('FactAmount')).reverse()//	降序
+				}else if(e.title=='数量' && this.descflag){
+				this.descflag =false
+				this.datalist.sort(this.compare('Quantity'))	
+				}else if(e.title=='数量' && !this.descflag){
+					this.descflag =true 
+				this.datalist.sort(this.compare('Quantity')).reverse()//	降序	
+				}
+				
+			},compare(property){ //这个是升序
+            return function(a,b){
+             var value1 = a[property];
+             var value2 = b[property];
+             return value1 - value2;
+              }
+
 			},sitemclick(ls){
 			console.log(JSON.stringify(ls))
 			console.log('hostName:'+this.userinfor.hostName)
@@ -256,8 +295,12 @@
 			},longpress(ls){
 			console.log('长按的操作:'+JSON.stringify(ls))	
 			},
-			chose(){
+			chose(id){
+			if(id==1){
 			this.showflag =true	
+			}else if(id==2){
+			this.vsortshow =true	
+			}
 			},
 			leftclick(){
 				uni.navigateBack({
@@ -396,7 +439,7 @@
 					uni.hideLoading()
 				},
 			});
-			 
+			uni.hideLoading() 
 		 },pagination(pageNo, pageSize, array) { //分页
                 var offset = (pageNo - 1) * pageSize;
                 return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
@@ -470,15 +513,18 @@
 	}
 	.textbox{
 		display: flex;
-		margin-right: 10upx;
+		
 		height: 70upx;
 	/*	width: 200upx; 
 		text-align: center;*/
 		justify-content: flex-start;
-		line-height: 70upx;
+		text-align: center;
+		align-items: center;
+	/*	line-height: 70upx;
 		white-space: nowrap;
-		overflow: hidden;
+		overflow: hidden; */
 		text-overflow: ellipsis;
+		word-break: break-all;
 	}
 	.footer{
 	 display: flex;	

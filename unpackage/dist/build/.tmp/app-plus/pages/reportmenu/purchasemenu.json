@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "报表菜单",
+  "usingComponents": {
+    "uni-nav-bar": "/node-modules/@dcloudio/uni-ui/lib/uni-nav-bar/uni-nav-bar",
+    "uni-grid": "/components/gird"
+  }
+}
