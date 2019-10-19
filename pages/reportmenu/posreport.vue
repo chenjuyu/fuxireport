@@ -88,7 +88,8 @@
 	import module1 from '../../jstools/mytool.js'
 	const datestr = module1.formatDate(new Date(),'yyyy-MM-dd')
 	const { screenWidth,screenHeight,windowWidth, windowHeight,navigationBarHeight } = uni.getSystemInfoSync(); //获取屏幕的高度与宽度
-	var that;
+	var that,
+	totallist=[]//总记录返回的都放在这里
 	export default{
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName','userinfor']),
 		components: {uniNavBar,uniSegmentedControl,popups,uniLoadMore},
@@ -111,7 +112,6 @@
 				datalist:[//显示列表
 					
 				],
-				totallist:[],//总记录返回的都放在这里
 				currpage:1,//当前页
 				totalQty:0,//数量金额合计
 				totalAmt:0,
@@ -414,8 +414,8 @@
 			 		'Content-Type': 'application/x-www-form-urlencoded', //自定义请求头信息
 			 		'token':uni.getStorageSync('token')
 			 	},success:(res)=>{
-					that.totallist =res.data.obj || []
-					if(that.totallist.length ==0){
+					totallist =res.data.obj || []
+					if(totallist.length ==0){
 						uni.showToast({
 							icon:'none',
 							title:'暂无数据返回'
@@ -423,7 +423,7 @@
 						return
 					}else{
 					
-					var array=that.pagination(that.currpage,15,that.totallist)
+					var array=that.pagination(that.currpage,15,totallist)
 					for(var i=0;i<array.length;i++){
 						that.datalist.push(array[i])
 					}
@@ -445,9 +445,9 @@
                 return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
           },total(){ //数量金额合计
 		  var qty=0,amt=0
-			  for(var i=0;i<that.totallist.length;i++){
-				 qty =Number(qty)+Number(that.totallist[i].Quantity)
-				 amt =Number(amt)+Number(that.totallist[i].FactAmount)
+			  for(var i=0;i<totallist.length;i++){
+				 qty =Number(qty)+Number(totallist[i].Quantity)
+				 amt =Number(amt)+Number(totallist[i].FactAmount)
 			  }
 			  if(qty){
 			   that.totalQty=qty
