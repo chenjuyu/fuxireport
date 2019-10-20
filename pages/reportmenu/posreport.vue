@@ -147,7 +147,7 @@
 			//  console.log(e)
 			that.currpage =Number(that.currpage)+Number(1)
 			var len=this.datalist.length
-			 if(len <= this.totallist.length){
+			 if(len <= totallist.length){
 					//this.loggingtype='loading'
 					uni.showLoading({
 						title:'正在加载...',
@@ -158,7 +158,7 @@
 					that.getData()	
 					}else if(that.currpage>1){
 					 //从列表取，不再网络请求
-					var tmplist=that.pagination(that.currpage, 15, that.totallist)
+					var tmplist=that.pagination(that.currpage, 15, totallist)
 					for(var i=0;i<tmplist.length;i++){
 						that.datalist.push(tmplist[i])
 					}

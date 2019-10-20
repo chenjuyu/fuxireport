@@ -84,7 +84,7 @@
 		display: -webkit-flex;
 		display: -ms-flexbox;
 		display: flex;
-		margin-right: 10rpx;
+		
 		height: 70rpx;
 	/*	width: 200upx; 
 		text-align: center;*/
@@ -92,11 +92,17 @@
 		-webkit-justify-content: flex-start;
 		    -ms-flex-pack: start;
 		        justify-content: flex-start;
-		line-height: 70rpx;
+		text-align: center;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		    -ms-flex-align: center;
+		        align-items: center;
+	/*	line-height: 70upx;
 		white-space: nowrap;
-		overflow: hidden;
+		overflow: hidden; */
 		-o-text-overflow: ellipsis;
 		   text-overflow: ellipsis;
+		word-break: break-all;
 }
 .footer{
 	 display: -webkit-box;

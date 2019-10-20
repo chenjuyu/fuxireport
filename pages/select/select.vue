@@ -85,13 +85,15 @@
 				});
 			}
 			,checkboxChange: function (e) {
+				debugger
 			                var items = this.items,
 			                    values = e.detail.value;
 								this.condition =values
 								console.log('values:'+values)
 			                for (var i = 0, lenI = items.length; i < lenI; ++i) {
 			                    const item = items[i]
-			                    if(values.includes(item.value)){
+								console.log('values1:'+values)
+			                    if(values.includes(item.id)){//value 已改字段名为id
 			                        this.$set(item,'checked',true)
 			                    }else{
 			                        this.$set(item,'checked',false)
@@ -103,14 +105,17 @@
 			var p={}
 			p.send=that.send
 			that.items.splice(0,that.items.length)
-			setTimeout(()=>{
-				console.log("关键字的值:"+this.keyword)
-				that.currPage =1
-				p.condition =this.keyword
-				
-				that.getdata(p)
-				
-			},0)
+			
+			console.log("关键字的值:"+this.keyword)
+			
+           console.log("that.items值:"+JSON.stringify(that.items))	
+				   
+				   
+			that.currPage =1
+			p.condition =this.keyword	
+			that.getdata(p)
+			
+		
 			
 		},submit(){
 			   console.log('获取到的内容:'+this.condition) 
