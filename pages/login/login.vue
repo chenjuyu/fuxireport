@@ -165,15 +165,19 @@
 				        'Content-Type': 'application/x-www-form-urlencoded' //自定义请求头信息
 				    },
 				    success: (res) => {
+						//console.log('返回的响应头:'+JSON.stringify(res.header))
 						console.log(JSON.stringify(res))
+						if(res && res.header && res.header['Set-Cookie'])
+						console.log('Cookie为:'+res.header['Set-Cookie'])
+						
 						if(res.data.success){
 						uni.setStorageSync(
 							'token',
 							res.data.obj.token
 						)
-						console.log("res.data.obj.token："+res.data.obj.token);
-				        console.log("登录信息："+JSON.stringify(res));
-						console.log('登录信息token:'+uni.getStorageSync('token'));
+					//	console.log("res.data.obj.token："+res.data.obj.token);
+				      //  console.log("登录信息："+JSON.stringify(res));
+					//	console.log('登录信息token:'+uni.getStorageSync('token'));
 				        //this.text = 'request success'; 
 			            //this.toMain(this.username); res.data.obj.UserName
 						var userinfor =res.data.obj

@@ -20,6 +20,12 @@
 					<view class="uni-input"><text style="font-size: 30upx;">{{EndDate}}</text></view>
 					</view>
 					</view>
+					
+					<!--按扭 -->
+					<view class="btn" @tap="submit">
+							<text style="font-size: 18px;color: #FFFFFF;">保存</text>
+					</view>
+					
 				        
 	 </view>
 	<w-picker
@@ -131,5 +137,16 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+	}
+	.btn{
+		margin-top: 20upx;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: center; 
+		align-items: center;
+		border-radius: 10upx;
+		background-color: #108ee9;
+		height: 80upx;
 	}
 </style>

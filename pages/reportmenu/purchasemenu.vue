@@ -13,9 +13,15 @@
 	import uniGrid from '../../components/gird.vue'
 	export default {
 	    components: {uniNavBar,uniGrid},
-		data(){
-			return{
+		data(){ 
+			return{ 
+				// #ifdef APP-PLUS
 				options:[{text:"零售分析",image:'../../static/img/posHL.png',url:'./posreport'}
+				// #endif
+				// #ifdef MP-WEIXIN
+				options:[{text:"零售分析",image:'/static/img/posHL.png',url:'./posreport'}
+				// #endif
+				
 			/*	{text:"采购明细表",image:'../../static/img/pos.png',url:'column/column'},
 				{text:"应付汇总表",image:'../../static/img/pos.png',url:'column/column'},
 				{text:"应付明细表",image:'../../static/img/pos.png',url:'column/column'} */

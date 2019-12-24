@@ -1,9 +1,0 @@
-{
-  "navigationStyle": "custom",
-  "bounce": "none",
-  "titleNView": false,
-  "usingComponents": {
-    "uni-nav-bar": "/node-modules/@dcloudio/uni-ui/lib/uni-nav-bar/uni-nav-bar",
-    "axb-check-box": "/components/axb-checkbox/axb-checkbox"
-  }
-}

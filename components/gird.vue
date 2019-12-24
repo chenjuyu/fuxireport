@@ -4,7 +4,7 @@
 			<view class="uni-grid-item" hover-class="uni-grid-item-hover" :hover-start-time="20" :hover-stay-time="70" v-for="(item,index) in items"
 			 :key="index" :class="[index == columnNum ? 'uni-grid-item-last' : '','uni-grid-item-' + type]" @click="onClick(i,index,item.url)" :style="{visibility:item.seize ? 'hidden' : 'inherit'}">
 				<view class="uni-grid-item__content" v-if="!item.seize">
-					<image class="uni-grid-item-image" :src="item.image"></image>
+					<image class="uni-grid-item-image" v-if="item.image" :src="item.image"></image>
 					<text class="uni-grid-item-text">{{item.text}}</text>
 				</view>
 			</view>
@@ -133,9 +133,9 @@
 	}
 
 	.uni-grid-item-text {
-		font-size: 32upx;
+		font-size: 32rpx;
 		color: #333;
-		margin-top: 12upx
+		margin-top: 12rpx
 	}
 
 	.uni-grid-item-hover {
@@ -143,17 +143,17 @@
 	}
 
 	.uni-grid-item-image {
-		width: 80upx;
-		height: 80upx;
+		width: 80rpx;
+		height: 80rpx;
 		
 	}
 
 	.uni-grid .uni-grid__flex:first-child .uni-grid-item:after {
-		border-top-width: 1px
+		border-top-width: 1rpx
 	}
 
 	.uni-grid .uni-grid__flex .uni-grid-item:first-child:after {
-		border-left-width: 1px
+		border-left-width: 1rpx
 	}
 
 	.uni-grid.uni-grid-no-out-border .uni-grid__flex:first-child .uni-grid-item:after {
@@ -193,12 +193,12 @@
 	}
 
 	.uni-grid-item-oblong .uni-grid-item-image {
-		width: 52upx;
-		height: 52upx
+		width: 52rpx;
+		height: 52rpx
 	}
 
 	.uni-grid-item-oblong .uni-grid-item-text {
 		margin-top: 0;
-		margin-left: 12upx
+		margin-left: 12rpx
 	}
 </style>

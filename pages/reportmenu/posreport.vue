@@ -5,26 +5,26 @@
 		<uni-segmented-control :current="current0" :values="items0" @clickItem="onClickItem0" style-type="button" active-color="#108ee9"></uni-segmented-control>
 		
 	<view style="display: flex;justify-content: center;align-items: center; z-index: 9999;">
-	<text style="font-size: 28upx;color:red">{{BeginDate}} 至 {{EndDate}}</text>
+	<text style="font-size: 28rpx;color:red">{{BeginDate}} 至 {{EndDate}}</text>
 	</view>
 		   <uni-segmented-control :current="current" :values="items" @clickItem="onClickItem" style-type="button" active-color="#108ee9"></uni-segmented-control>   
 				<view class="headtitle">
-					<view class="textbox"  :style="{width:ti==0?'100upx':widthstyle(ti)+'upx','margin-right':ti==0?'10upx':'0'}" :key="ti" v-for="(titem,ti) in headtitle">
-						<text style="font-size: 35upx;">{{titem.title}}</text>
-					</view>
+				    <view class="textbox"  :style="{width:ti==0?'100rpx':widthstyle(ti)+'rpx','margin-right':ti==0?'10rpx':'0'}" :key="ti" v-for="(titem,ti) in headtitle">
+					<text style="font-size: 35rpx;">{{titem.title}}</text>
+			    	</view>		
 				</view>
-	</view> <!-- 头部结束 titem.title=='名次'?'':txtwidht+'upx'-->			
+	</view> <!-- 头部结束 titem.title=='名次'?'':txtwidht+'rpx'-->			
                 
 					  <!-- <view v-show="current === 0"> --> <!-- :style="{'height':height+'px'}"--> 
 				<view class="content1">
 		                            <view class="scrollitem" hover-class="hoverclass" @longpress="longpress(ls)"  v-for="(ls,index) in datalist " :key="index"  @click="sitemclick(ls)">
-										<view class="textbox" :style="{width:'100upx','margin-right':ti==0?'10upx':'0'}">  <text style="font-size: 28upx;"> {{index+1}} </text> </view>
-										<view class="textbox" :style="{width:'400upx'}">  <text style="font-size: 28upx;">{{ls.Name}}</text> </view>
-										<view class="textbox" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.Quantity}}</text> </view>
-										<view class="textbox" v-if="current !=5" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.FactAmount}}</text> </view>
-								       <view class="textbox" v-if="current ==5" :style="{width:txtwidht+'upx'}">  <text style="font-size: 28upx;">{{ls.RetailSales}}</text> </view>
-										<view class="textbox" v-if="current==1 || current==2 || current==3" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.Lv}}</text> </view>
-									    <view class="textbox" v-if="current==5" :style="{width:txtwidht+'upx'}"> <text style="font-size: 28upx;">{{ls.AvgPrice}}</text> </view>
+										<view class="textbox" :style="{width:'100rpx','margin-right':ti==0?'10rpx':'0'}">  <text style="font-size: 28rpx;"> {{index+1}} </text> </view>
+										<view class="textbox" :style="{width:'400rpx'}">  <text style="font-size: 28rpx;">{{ls.Name}}</text> </view>
+										<view class="textbox" :style="{width:txtwidht+'rpx'}">  <text style="font-size: 28rpx;">{{ls.Quantity}}</text> </view>
+										<view class="textbox" v-if="current !=5" :style="{width:txtwidht+'rpx'}">  <text style="font-size: 28rpx;">{{ls.FactAmount}}</text> </view>
+								       <view class="textbox" v-if="current ==5" :style="{width:txtwidht+'rpx'}">  <text style="font-size: 28rpx;">{{ls.RetailSales}}</text> </view>
+										<view class="textbox" v-if="current==1 || current==2 || current==3" :style="{width:txtwidht+'rpx'}"> <text style="font-size: 28rpx;">{{ls.Lv}}</text> </view>
+									    <view class="textbox" v-if="current==5" :style="{width:txtwidht+'rpx'}"> <text style="font-size: 28rpx;">{{ls.AvgPrice}}</text> </view>
 									 </view>
 		                                  										   
 		            
@@ -52,18 +52,18 @@
 				
 	<view class="footer">
 	<view class="footer1">
-		<text style="font-size: 35upx;color: #696969;">合计:</text>
-		<text style="font-size: 35upx;color: #696969;margin-left: 200upx;">{{totalQty}}</text>
-		<text style="font-size: 35upx;color: #696969;margin-left: 80upx;">{{totalAmt}}</text>
+		<text style="font-size: 35rpx;color: #696969;">合计:</text>
+		<text style="font-size: 35rpx;color: #696969;margin-left: 200rpx;">{{totalQty}}</text>
+		<text style="font-size: 35rpx;color: #696969;margin-left: 80rpx;">{{totalAmt}}</text>
 	</view>	
 	
 	<view style="display: flex;flex-direction: row;">
 		 
 	<view @click="chose(2)" class="footer2">	
-	<text style="font-size: 35upx;color: #696969;">排序</text>	
+	<text style="font-size: 35rpx;color: #696969;">排序</text>	
 	</view>
-	<view @click="chose(1)" style="display: flex;width: 375upx;justify-content: center;height: 60upx;padding-top: 19upx;">
-		<text style="font-size: 35upx;color: #696969;">筛选</text> 
+	<view @click="chose(1)" style="display: flex;width: 375rpx;justify-content: center;height: 60rpx;padding-top: 19rpx;">
+		<text style="font-size: 35rpx;color: #696969;">筛选</text> 
     </view>
 	
 	</view>	
@@ -358,6 +358,10 @@
 				}
 				that.currpage=1 //切换重新获取
 				this.strcondition=''
+				uni.showLoading({
+				 title:'正在加载',
+								mask:true
+				 })
 				that.getData()
             }
             }
@@ -369,6 +373,10 @@
 				this.BeginDate =datestr
 				this.EndDate =datestr	
 				 that.currpage=1 //切换重新获取
+				 uni.showLoading({
+				  title:'正在加载',
+				 				mask:true
+				  })
 				that.getData()
 			}else if(index==1){
 				  var date =new Date()
@@ -377,6 +385,10 @@
 				this.BeginDate=module1.formatDate(date,'yyyy-MM-dd')
 				this.EndDate=module1.formatDate(date,'yyyy-MM-dd')
 				 that.currpage=1 //切换重新获取
+				 uni.showLoading({
+				  title:'正在加载',
+				 				mask:true
+				  })
 				that.getData()
 			}else if(index==2){
 				var date2 =new Date()
@@ -384,6 +396,10 @@
 				this.BeginDate=module1.formatDate(date2,'yyyy-MM-dd')
 				 this.EndDate=module1.formatDate(new Date(),'yyyy-MM-dd')
 				  that.currpage=1 //切换重新获取
+				  uni.showLoading({
+				   title:'正在加载',
+				  				mask:true
+				   })
 				 that.getData()
 			}else if(index==3){
 				var date2 =new Date()
@@ -391,6 +407,10 @@
 			   this.BeginDate=module1.formatDate(date2,'yyyy-MM-dd')
 				this.EndDate=module1.formatDate(new Date(),'yyyy-MM-dd')
 				 that.currpage=1 //切换重新获取
+				 uni.showLoading({
+				  title:'正在加载',
+				 				mask:true
+				  })
 				that.getData()
 			}else if(index ==4){
 				console.log('index==4:')
@@ -400,12 +420,8 @@
 				}) 
 			}
 			
-		 },getData(){ //获取数据并传参数 重新获取时 要重置
-		 uni.showLoading({
-		 	title:'正在加载',
-			mask:true
-		 })
-		     that.datalist.splice(0,that.datalist.length)
+		 },getData(){ //获取数据并传参数 重新获取时 
+			that.datalist.splice(0,that.datalist.length)
 			uni.request({
 			 	url:uni.getStorageSync('ip')+'/salesTicket.do?report88',
 			 	data:{hostName:uni.getStorageSync('hostName'),BeginDate:this.BeginDate,EndDate:this.EndDate,disType:this.items[this.current],Condition:this.strcondition},
@@ -416,6 +432,7 @@
 			 	},success:(res)=>{
 					totallist =res.data.obj || []
 					if(totallist.length ==0){
+						uni.hideLoading() 
 						uni.showToast({
 							icon:'none',
 							title:'暂无数据返回'
@@ -427,19 +444,22 @@
 					for(var i=0;i<array.length;i++){
 						that.datalist.push(array[i])
 					}
-					that.total()			
+					that.total()	
+				
+				  uni.hideLoading() 			
 					}
-					uni.hideLoading()
+				
 				},
 				fail:(res)=>{
+					uni.hideLoading() 
 					uni.showToast({
 						icon:'none',
 						title: '网络请求异常'
 					})
-					uni.hideLoading()
+					
 				},
 			});
-			uni.hideLoading() 
+			
 		 },pagination(pageNo, pageSize, array) { //分页
                 var offset = (pageNo - 1) * pageSize;
                 return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
@@ -473,7 +493,7 @@
 	.header{
 		z-index: 9999;
 		position: fixed;
-        top:0upx;
+        top:0rpx;
 	    width: 100%;
 		background-color: #FFFFFF;/*要设置背景色,不然能看到滚动的底层的*/
         padding-top: 10px;	 
@@ -483,17 +503,17 @@
 		width: 100%;
 		display: flex;
 		flex-direction: row;
-		border-bottom-width: 1upx;
+		border-bottom-width: 1rpx;
 		border-bottom-style: solid;
 		border-color: #808080;
 	}
 	.content1{
      	display: flex;
 		flex-direction: column;
-		margin-top: 270upx;
-	/*	margin-bottom: 160upx; 底部的高度*/
+		margin-top: 270rpx;
+	/*	margin-bottom: 160rpx; 底部的高度*/
 		width: 100%;
-		margin-bottom: 160upx;
+		margin-bottom: 160rpx;
 	}
 	.scroll-Y{
 		/* background-color: red; */
@@ -503,7 +523,7 @@
 	.scrollitem{
 		display: flex;
 		flex-direction: row;
-		border-bottom-width: 1upx;
+		border-bottom-width: 1rpx;
 		border-bottom-style: solid;
 		border-color: #D9D9D9;
 		
@@ -514,13 +534,13 @@
 	.textbox{
 		display: flex;
 		
-		height: 70upx;
-	/*	width: 200upx; 
+		height: 70rpx;
+	/*	width: 200rpx; 
 		text-align: center;*/
 		justify-content: flex-start;
 		text-align: center;
 		align-items: center;
-	/*	line-height: 70upx;
+	/*	line-height: 70rpx;
 		white-space: nowrap;
 		overflow: hidden; */
 		text-overflow: ellipsis;
@@ -534,31 +554,31 @@
 	 left: 0;
 	 bottom: 0;
 	 right: 0;
-	 height: 160upx;
+	 height: 160rpx;
 	 background-color:#FFF;/*#DCDCDC;*/
 	 border-color:#D9D9D9;
-	 border-top-width: 1upx;
+	 border-top-width: 1rpx;
 	 border-top-style: solid;
 	}
 	.footer1{
 		display: flex;
 		flex-direction: row;
-		height: 60upx;
+		height: 60rpx;
 		border-bottom-color: #808080;
-		border-bottom-width: 1upx;
+		border-bottom-width: 1rpx;
 		border-bottom-style: solid;
-		padding-top: 19upx;
+		padding-top: 19rpx;
 		
 	}
 	.footer2{
 		display: flex;
 		flex-direction: row;
-		height: 60upx;
+		height: 60rpx;
 		border-bottom-color: #808080;
-		border-right-width: 1upx;
+		border-right-width: 1rpx;
 		border-right-style: solid;
-		padding-top: 19upx;
-		width: 375upx;
+		padding-top: 19rpx;
+		width: 375rpx;
 		justify-content: center;
 	}
 </style>
